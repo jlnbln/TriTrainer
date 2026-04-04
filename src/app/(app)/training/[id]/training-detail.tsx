@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { SPORT_CONFIG } from '@/lib/constants';
 import { Textarea } from '@/components/ui/textarea';
 import { createClient } from '@/lib/supabase/client';
@@ -75,12 +74,12 @@ export function TrainingDetail({ training, drills, userId }: TrainingDetailProps
     <div className="max-w-lg mx-auto pb-48">
       {/* Top bar */}
       <div className="px-5 pt-4 pb-4 flex items-center justify-between">
-        <Link
-          href="/home"
+        <button
+          onClick={() => router.back()}
           className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-muted transition-colors"
         >
           <span className="material-symbols-outlined text-primary">arrow_back</span>
-        </Link>
+        </button>
         <span className="font-headline font-bold text-xs tracking-widest text-muted-foreground uppercase">
           Week {week?.week_number} · {phase?.name?.en}
         </span>

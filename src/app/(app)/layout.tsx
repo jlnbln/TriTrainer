@@ -11,7 +11,7 @@ export default function AppLayout({
   return (
     <div className="flex flex-col min-h-screen">
       <AppHeader />
-      <main className="flex-1 pb-20" style={{ paddingTop: 'calc(72px + env(safe-area-inset-top, 0px))' }}>{children}</main>
+      <main className="flex-1" style={{ paddingTop: 'calc(72px + env(safe-area-inset-top, 0px))', paddingBottom: 'calc(56px + env(safe-area-inset-bottom, 0px))' }}>{children}</main>
       <BottomNav />
     </div>
   );

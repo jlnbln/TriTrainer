@@ -17,7 +17,10 @@ export function PlanView({ weeks, currentWeekNumber }: PlanViewProps) {
 
   useEffect(() => {
     if (currentWeekRef.current) {
-      currentWeekRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const el = currentWeekRef.current;
+      // Scroll the week card into view, offset by the fixed header height
+      const top = el.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
   }, []);
 
