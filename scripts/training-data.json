@@ -1,0 +1,1994 @@
+{
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "name": {
+        "en": "Base Building",
+        "de": "Grundlagenaufbau"
+      },
+      "description": {
+        "en": "Build your aerobic base across all three disciplines. Keep efforts easy and conversational. Volume builds gradually.",
+        "de": "Baue deine aerobe Basis in allen drei Disziplinen auf. Halte die Belastung locker und im Gesprächstempo. Das Volumen steigt schrittweise."
+      },
+      "startDate": "2026-04-06",
+      "endDate": "2026-05-17"
+    },
+    {
+      "phaseNumber": 2,
+      "name": {
+        "en": "Build",
+        "de": "Aufbau"
+      },
+      "description": {
+        "en": "Volume and intensity increase. Structured intervals and tempo work begin. Brick sessions introduce the crucial bike-to-run transition.",
+        "de": "Umfang und Intensität steigen. Strukturierte Intervalle und Tempoarbeit beginnen. Koppeltraining führt den wichtigen Rad-Lauf-Übergang ein."
+      },
+      "startDate": "2026-05-18",
+      "endDate": "2026-06-28"
+    },
+    {
+      "phaseNumber": 3,
+      "name": {
+        "en": "Race-Specific",
+        "de": "Rennspezifisch"
+      },
+      "description": {
+        "en": "Race-specific training. Sessions simulate race conditions. Open-water swimming, race-pace bike efforts, and longer bricks.",
+        "de": "Rennspezifisches Training. Einheiten simulieren Wettkampfbedingungen. Freiwasserschwimmen, Renntempo auf dem Rad und längere Koppeltrainings."
+      },
+      "startDate": "2026-06-29",
+      "endDate": "2026-08-02"
+    },
+    {
+      "phaseNumber": 4,
+      "name": {
+        "en": "Taper",
+        "de": "Tapering"
+      },
+      "description": {
+        "en": "Volume drops 40–50% while intensity stays. Your body absorbs all the hard work and peaks on race day.",
+        "de": "Umfang sinkt um 40–50%, Intensität bleibt. Dein Körper verarbeitet die harte Arbeit und erreicht am Renntag die Höchstform."
+      },
+      "startDate": "2026-08-03",
+      "endDate": "2026-09-06"
+    }
+  ],
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "label": "Week 1  Apr 6–12",
+      "startDate": "2026-04-06",
+      "endDate": "2026-04-12",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-04-06",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,200m",
+          "description": "Warm-up 200m easy. Drill set: 4×50m catch-up drill. Main: 4×200m easy freestyle, 30s rest. Cool-down 100m easy. Focus: relaxed stroke, breathe every 3 strokes.",
+          "distanceMeters": 1200,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "catch-up"
+          ],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-07",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 4km",
+          "description": "Easy conversational pace (~6:30 min/km). No pressure, just build the habit. Flat route preferred. Focus: land mid-foot, keep shoulders relaxed.",
+          "distanceMeters": 4000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-08",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,200m",
+          "description": "Warm-up 200m. Drill: 4×50m finger-drag drill (improves catch). Main: 600m continuous easy swim. Cool-down 200m. Focus: long smooth strokes.",
+          "distanceMeters": 1200,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "finger-drag"
+          ],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-09",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 4km",
+          "description": "Same easy effort as Tuesday. Try a slightly different route. Focus: consistent cadence (~170 steps/min), upright posture.",
+          "distanceMeters": 4000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-10",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest day. Light stretching or yoga optional.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-11",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 35 min",
+          "description": "Easy leisure ride. Focus on cadence: aim for 80–90 RPM (spin lighter gear, faster legs). No intensity needed — just get comfortable thinking about cadence.",
+          "distanceMeters": null,
+          "durationMinutes": 35,
+          "drillSlugs": [],
+          "weekNumber": 1
+        },
+        {
+          "date": "2026-04-12",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 1
+        }
+      ]
+    },
+    {
+      "weekNumber": 2,
+      "label": "Week 2  Apr 13–19",
+      "startDate": "2026-04-13",
+      "endDate": "2026-04-19",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-04-13",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,300m",
+          "description": "Warm-up 200m. Drill: 4×50m side-kick drill (improves body rotation). Main: 5×200m easy, 30s rest. Cool-down 100m. Focus: rotate hips with each stroke.",
+          "distanceMeters": 1300,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "side-kick"
+          ],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-14",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 4.5km",
+          "description": "Add 500m to last week. Keep the same easy effort. If you finish and feel great, resist going faster — patience builds the base.",
+          "distanceMeters": 4500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-15",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,300m",
+          "description": "Warm-up 200m. Main: 3×300m continuous, 45s rest. Cool-down 100m. Focus: count strokes per length, aim for 18–22 strokes per 25m.",
+          "distanceMeters": 1300,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-16",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 4.5km",
+          "description": "Easy effort. Try running on a slight incline for part of it to build leg strength naturally.",
+          "distanceMeters": 4500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-17",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-18",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 35 min",
+          "description": "Add a gentle hill or two. Stay seated on climbs. Focus: maintain 80+ RPM even uphill by shifting gears.",
+          "distanceMeters": null,
+          "durationMinutes": 35,
+          "drillSlugs": [],
+          "weekNumber": 2
+        },
+        {
+          "date": "2026-04-19",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 2
+        }
+      ]
+    },
+    {
+      "weekNumber": 3,
+      "label": "Week 3  Apr 20–26",
+      "startDate": "2026-04-20",
+      "endDate": "2026-04-26",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-04-20",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,400m",
+          "description": "Warm-up 200m. Drill: 4×50m single-arm drill. Main: 4×250m easy, 30s rest. Cool-down 100m. Focus: feel the water pressure on your palm during the pull.",
+          "distanceMeters": 1400,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "single-arm"
+          ],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-21",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Back to your comfort distance. Easy effort (~6:20–6:30 min/km). This should feel manageable and enjoyable.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-22",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,400m",
+          "description": "Warm-up 150m. Main: 800m continuous swim (no stopping). Cool-down 200m with backstroke/breaststroke. Note how you feel at the 500m and 800m marks.",
+          "distanceMeters": 1400,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-23",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy run. In the last 5 minutes, pick up the pace slightly — just a small 'feel good' surge to finish strong.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-24",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-25",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 40 min",
+          "description": "Slightly longer ride. Include 2×5 min at a moderate effort (feel like you're working but can still speak short sentences). 5 min easy between efforts.",
+          "distanceMeters": null,
+          "durationMinutes": 40,
+          "drillSlugs": [],
+          "weekNumber": 3
+        },
+        {
+          "date": "2026-04-26",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 3
+        }
+      ]
+    },
+    {
+      "weekNumber": 4,
+      "label": "Week 4  Apr 27–May 3",
+      "startDate": "2026-04-27",
+      "endDate": "2026-05-03",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-04-27",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,500m",
+          "description": "Warm-up 200m. Main: 6×200m at easy-moderate effort, 25s rest. Cool-down 100m. This is your race distance in the pool — a confidence builder.",
+          "distanceMeters": 1500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-04-28",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy effort. Focus on breathing rhythm: try inhale 3 steps, exhale 2 steps (3:2 rhythm). Helps with efficient breathing.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-04-29",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,500m",
+          "description": "Warm-up 200m. Drill: 2×50m catch-up. Main: 1,000m continuous at easy pace. Cool-down 200m. Note your 1,000m time for tracking progress.",
+          "distanceMeters": 1500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-04-30",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy run. Practice relaxing your hands (imagine holding a potato chip without breaking it) and dropping your shoulders.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-05-01",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-05-02",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 45 min",
+          "description": "Steady ride. 3×6 min moderate effort with 4 min easy recovery. Focus on staying aerodynamic: elbows bent, chin up, look ahead.",
+          "distanceMeters": null,
+          "durationMinutes": 45,
+          "drillSlugs": [],
+          "weekNumber": 4
+        },
+        {
+          "date": "2026-05-03",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 4
+        }
+      ]
+    },
+    {
+      "weekNumber": 5,
+      "label": "Week 5  May 4–10",
+      "startDate": "2026-05-04",
+      "endDate": "2026-05-10",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-05-04",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,600m",
+          "description": "Warm-up 200m. Main: 4×300m moderate effort (slightly harder than easy), 30s rest. Cool-down 100m. Focus: maintain stroke count as you get tired.",
+          "distanceMeters": 1600,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-05",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5.5km",
+          "description": "Extend slightly. Easy conversational pace. If the extra 500m feels hard, you're going too fast — slow down.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-06",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,600m",
+          "description": "Warm-up 200m. Drill: 4×50m fist drill (closed fist to feel forearm catch). Main: 3×400m easy, 40s rest. Cool-down 200m.",
+          "distanceMeters": 1600,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "fist"
+          ],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-07",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 5.5km",
+          "description": "Easy effort. Try to run in a location you enjoy — parks, waterfront. Motivation matters.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-08",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-09",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 25min → Run 1.5km",
+          "description": "Bike 25 min at moderate effort, then immediately change shoes and run 1.5km. Your legs will feel like lead — this is normal! Shuffle the first few minutes, then find your run legs. This is the most important workout of the week.",
+          "distanceMeters": 1500,
+          "durationMinutes": 25,
+          "drillSlugs": [],
+          "weekNumber": 5
+        },
+        {
+          "date": "2026-05-10",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Recovery — the brick may leave you more tired than expected.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 5
+        }
+      ]
+    },
+    {
+      "weekNumber": 6,
+      "label": "Week 6  May 11–17",
+      "startDate": "2026-05-11",
+      "endDate": "2026-05-17",
+      "phaseNumber": 1,
+      "trainings": [
+        {
+          "date": "2026-05-11",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,600m",
+          "description": "Warm-up 200m. Main: 1,200m continuous. Cool-down 200m. Goal: swim the 1,200m without stopping. Track your time.",
+          "distanceMeters": 1600,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-12",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Recovery week — slightly shorter run. Very easy effort. Enjoy it.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-13",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,500m",
+          "description": "Technique focus. Warm-up 200m. Drill set: 200m of your favourite drill. Main: 3×300m, 30s rest. Cool-down 200m. Think about one technique cue only: long strokes.",
+          "distanceMeters": 1500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-14",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy run. Reflect on how your fitness has improved since Week 1. Small wins matter.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-15",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-16",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 40 min",
+          "description": "Easier week — just an enjoyable moderate ride. No structured intervals. Spin the legs.",
+          "distanceMeters": null,
+          "durationMinutes": 40,
+          "drillSlugs": [],
+          "weekNumber": 6
+        },
+        {
+          "date": "2026-05-17",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest. Phase 1 complete — well done!",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 6
+        }
+      ]
+    },
+    {
+      "weekNumber": 7,
+      "label": "Week 7  May 18–24",
+      "startDate": "2026-05-18",
+      "endDate": "2026-05-24",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-05-18",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,700m",
+          "description": "Warm-up 200m. Main: 6×100m with 20s rest, then 4×200m with 30s rest. Cool-down 100m. First time doing structured intervals — effort should feel moderate-hard on the 100s.",
+          "distanceMeters": 1700,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-19",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy effort. Welcome to Phase 2! Keep patience — the harder sessions start mid-week.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-20",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,800m",
+          "description": "Warm-up 200m. Drill: 4×50m. Main: 8×100m at moderate-strong pace (7/10 effort), 25s rest. Cool-down 200m. Focus: keep stroke long even when pushing pace.",
+          "distanceMeters": 1800,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-21",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Run with Pace Work 5km",
+          "description": "Warm-up 1km easy. Main: 2×10 min at race pace (5:30–5:45 min/km), with 3 min easy jog between. Cool-down 1km easy. First taste of race effort!",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-22",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-23",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 50 min",
+          "description": "3×8 min moderate-hard effort (7/10 RPE), 4 min easy between. Warm-up and cool-down 5 min each. Focus: hold power/speed steady throughout the effort block.",
+          "distanceMeters": null,
+          "durationMinutes": 50,
+          "drillSlugs": [],
+          "weekNumber": 7
+        },
+        {
+          "date": "2026-05-24",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 7
+        }
+      ]
+    },
+    {
+      "weekNumber": 8,
+      "label": "Week 8  May 25–31",
+      "startDate": "2026-05-25",
+      "endDate": "2026-05-31",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-05-25",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,800m",
+          "description": "Warm-up 200m. Main: 4×400m at moderate effort, 45s rest. Cool-down 200m. Practice open-water sighting if at a lake/sea: every 10 strokes, lift head briefly to look forward.",
+          "distanceMeters": 1800,
+          "durationMinutes": null,
+          "drillSlugs": [
+            "open-water-sighting"
+          ],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-26",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Longer easy run. Very comfortable pace. Build the aerobic base steadily.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-27",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,800m",
+          "description": "Warm-up 200m. Pyramid set: 100, 200, 300, 200, 100m with 30s rest each. Cool-down 200m. Focus: stay smooth on the 300m — don't die at the top of the pyramid.",
+          "distanceMeters": 1800,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-28",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Tempo Run 5km",
+          "description": "Warm-up 1km easy. Main: 3km at a comfortably hard pace (6/10 effort, ~5:45 min/km). Cool-down 1km easy. This builds your lactate threshold.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-29",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-30",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 55 min",
+          "description": "Warm-up 10 min. Main: 35 min steady moderate ride (6/10 effort). Cool-down 10 min. Practice drinking water while riding — you'll need this in the race.",
+          "distanceMeters": null,
+          "durationMinutes": 55,
+          "drillSlugs": [],
+          "weekNumber": 8
+        },
+        {
+          "date": "2026-05-31",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 8
+        }
+      ]
+    },
+    {
+      "weekNumber": 9,
+      "label": "Week 9  Jun 1–7",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-07",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-06-01",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,900m",
+          "description": "Warm-up 200m. Main: 5×300m moderate, 35s rest. Cool-down 200m. Focus: breathe bilaterally (alternate sides) to be comfortable in open water if the course turns.",
+          "distanceMeters": 1900,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-02",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy pace. Focus on strong arm drive — arms should swing forward-back, not across body. This improves running economy.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-03",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,900m",
+          "description": "Warm-up 200m. Main: 3×500m moderate, 45s rest. Cool-down 200m. The 1,500m of work is getting close to race distance. Good confidence builder.",
+          "distanceMeters": 1900,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-04",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Interval Run 5km",
+          "description": "Warm-up 1km. Main: 5×3 min at hard pace (~5:10–5:20 min/km), 90s jog recovery. Cool-down 1km. First speed intervals — short and sharp to build leg turnover.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-05",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-06",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 30min → Run 2.5km",
+          "description": "Bike 30 min with 2×8 min moderate-hard efforts. Immediately run 2.5km. Your pace goal: don't look at your watch for the first 500m, just settle in. Then aim for ~5:45 min/km.",
+          "distanceMeters": 2500,
+          "durationMinutes": 30,
+          "drillSlugs": [],
+          "weekNumber": 9
+        },
+        {
+          "date": "2026-06-07",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Recovery from the brick.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 9
+        }
+      ]
+    },
+    {
+      "weekNumber": 10,
+      "label": "Week 10  Jun 8–14",
+      "startDate": "2026-06-08",
+      "endDate": "2026-06-14",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-06-08",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 10×100m at moderate-strong effort (7/10), 20s rest. Cool-down 200m. These short intervals improve pace. Note your average 100m split.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-09",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy and relaxed. Mid-plan check: how are your legs feeling? If fatigued, slow down further. Listen to your body.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-10",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 1,500m continuous at easy-moderate pace. Cool-down 200m. This is your full race distance! Don't push — just swim it comfortably. Note your time.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-11",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Tempo Run 5km",
+          "description": "Warm-up 1km. Main: 3km tempo at ~5:30–5:45 min/km. Cool-down 1km. Your tempo pace should be improving from Week 8.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-12",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-13",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 60 min",
+          "description": "Longest bike so far. Warm-up 10 min. Main: 40 min steady effort (6–7/10). Cool-down 10 min. Simulate race nutrition: sip water every 10–15 minutes.",
+          "distanceMeters": null,
+          "durationMinutes": 60,
+          "drillSlugs": [],
+          "weekNumber": 10
+        },
+        {
+          "date": "2026-06-14",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 10
+        }
+      ]
+    },
+    {
+      "weekNumber": 11,
+      "label": "Week 11  Jun 15–21",
+      "startDate": "2026-06-15",
+      "endDate": "2026-06-21",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-06-15",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 4×400m moderate, 40s rest. Cool-down 200m. Focus: negative split each 400m — swim the second 200m slightly faster than the first.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-16",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6.5km",
+          "description": "Slightly longer easy run. Keep it genuinely easy — this supports recovery from harder swim and run sessions.",
+          "distanceMeters": 6500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-17",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Race-simulation set: 3×400m at goal race pace (roughly 1:50–2:00/100m), 60s rest. Cool-down 200m. Getting specific now.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-18",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Mixed Run 5.5km",
+          "description": "Warm-up 1km. Main: 1km easy, 1km at race pace (5:30 min/km), 1km easy, 1km at race pace. Cool-down 500m. Helps you practice switching gears.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-19",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-20",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 35min → Run 3km",
+          "description": "Bike 35 min with 3×8 min moderate-hard efforts. Transition quickly and run 3km. Goal: settle into 5:35–5:45 min/km within the first 500m. Practice your transition: helmet off, shoes on, go.",
+          "distanceMeters": 3000,
+          "durationMinutes": 35,
+          "drillSlugs": [],
+          "weekNumber": 11
+        },
+        {
+          "date": "2026-06-21",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Recovery from brick.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 11
+        }
+      ]
+    },
+    {
+      "weekNumber": 12,
+      "label": "Week 12  Jun 22–28",
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "phaseNumber": 2,
+      "trainings": [
+        {
+          "date": "2026-06-22",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 1,600m at easy-moderate continuous. Cool-down 200m. Focus on technique — you're building great fitness now, don't let technique slip.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-23",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy recovery run. Phase 2 has been tough — your body is adapting. Easy runs are where that adaptation happens.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-24",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,800m",
+          "description": "Lighter mid-week session. Warm-up 200m. Drill set: 200m drills of your choice. Main: 4×300m easy, 30s rest. Cool-down 100m.",
+          "distanceMeters": 1800,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-25",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy run. Shorter than recent Thursdays — this is a slight de-load before Phase 3.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-26",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-27",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 50 min",
+          "description": "Lighter bike — enjoyable moderate ride. No structured intervals. A reward ride after a big build block.",
+          "distanceMeters": null,
+          "durationMinutes": 50,
+          "drillSlugs": [],
+          "weekNumber": 12
+        },
+        {
+          "date": "2026-06-28",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest. Phase 2 complete — halfway there!",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 12
+        }
+      ]
+    },
+    {
+      "weekNumber": 13,
+      "label": "Week 13  Jun 29–Jul 5",
+      "startDate": "2026-06-29",
+      "endDate": "2026-07-05",
+      "phaseNumber": 3,
+      "trainings": [
+        {
+          "date": "2026-06-29",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Race-pace set: 4×250m at target race pace (sub-1:55/100m), 45s rest. Cool-down 200m. This is now race-specific preparation.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-06-30",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy effort. Welcome to Phase 3 — the hardest and most rewarding block. Stay patient on easy days.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-07-01",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 3×500m at race effort, 60s rest. Cool-down 200m. 500m in open water if possible. Practice sighting every 8–10 strokes.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-07-02",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Race-Pace Run 5km",
+          "description": "Warm-up 1km. Main: 3km at target race pace (5:20–5:30 min/km). Cool-down 1km. Start feeling what race day legs feel like.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-07-03",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-07-04",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 65 min",
+          "description": "Warm-up 10 min. Main: 45 min at race effort (7/10 RPE, sustainable but working). Cool-down 10 min. Practice race nutrition: water every 10 min, a small snack at 30 min if desired.",
+          "distanceMeters": null,
+          "durationMinutes": 65,
+          "drillSlugs": [],
+          "weekNumber": 13
+        },
+        {
+          "date": "2026-07-05",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 13
+        }
+      ]
+    },
+    {
+      "weekNumber": 14,
+      "label": "Week 14  Jul 6–12",
+      "startDate": "2026-07-06",
+      "endDate": "2026-07-12",
+      "phaseNumber": 3,
+      "trainings": [
+        {
+          "date": "2026-07-06",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 2,000m split as: 500m easy, 500m moderate, 500m race pace, 500m easy cool-down. A full race-distance swim at graduated effort.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-07",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6.5km",
+          "description": "Long easy run. Build your aerobic engine. Focus on form and breathing.",
+          "distanceMeters": 6500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-08",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Sprint set: 8×50m at sprint pace (9/10 effort), 30s rest. Then 800m at easy pace. Cool-down 200m. Sprints develop speed, the 800m builds endurance.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-09",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Tempo + Intervals 5.5km",
+          "description": "Warm-up 1km. 2km tempo (5:35 min/km). 2 min rest. 3×1 min fast (5:00 min/km), 1 min jog. Cool-down 1km. A demanding session — fuel well beforehand.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-10",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-11",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 40min → Run 3km",
+          "description": "Bike 40 min including 3×10 min at race intensity. Transition in under 90 seconds (practice!) then run 3km at race pace (5:30 min/km). Time your transition — aim to beat it each week.",
+          "distanceMeters": 3000,
+          "durationMinutes": 40,
+          "drillSlugs": [],
+          "weekNumber": 14
+        },
+        {
+          "date": "2026-07-12",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 14
+        }
+      ]
+    },
+    {
+      "weekNumber": 15,
+      "label": "Week 15  Jul 13–19",
+      "startDate": "2026-07-13",
+      "endDate": "2026-07-19",
+      "phaseNumber": 3,
+      "trainings": [
+        {
+          "date": "2026-07-13",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,100m",
+          "description": "Warm-up 200m. Main: 5×300m at race pace, 45s rest. Cool-down 200m. Consistency in race-pace swimming is the goal. These reps should start feeling familiar.",
+          "distanceMeters": 2100,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-14",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy run. Recovery day. This week has two hard sessions (Thu/Sat) so protect Tuesday.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-15",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 1,400m continuous at easy-moderate effort. Cool-down 200m. Long unbroken swims build mental endurance for race day.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-16",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Race-Pace Run 5km",
+          "description": "Warm-up 1km. Main: 3km at race pace (5:20–5:30 min/km). Cool-down 1km. Your pace should feel more comfortable than Week 13.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-17",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-18",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 70 min",
+          "description": "Your longest bike session. Warm-up 10 min. Main: 50 min at race intensity (7/10 RPE). Cool-down 10 min. Simulate the full race bike leg duration. Nutrition practice is critical here.",
+          "distanceMeters": null,
+          "durationMinutes": 70,
+          "drillSlugs": [],
+          "weekNumber": 15
+        },
+        {
+          "date": "2026-07-19",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 15
+        }
+      ]
+    },
+    {
+      "weekNumber": 16,
+      "label": "Week 16  Jul 20–26",
+      "startDate": "2026-07-20",
+      "endDate": "2026-07-26",
+      "phaseNumber": 3,
+      "trainings": [
+        {
+          "date": "2026-07-20",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,100m",
+          "description": "Warm-up 200m. Main: race simulation — swim 1,000m continuous at goal race effort (aim for sub-19 min). Note your time! Cool-down 400m easy.",
+          "distanceMeters": 2100,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-21",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6.5km",
+          "description": "Easy effort. Mental note: race day is 6 weeks away. Your training is working — trust the process.",
+          "distanceMeters": 6500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-22",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Pace work: 10×100m with 15s rest at slightly faster than race pace. Cool-down 200m. Short rest = simulate open water where you can't truly rest.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-23",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Tempo Run with Surge 5.5km",
+          "description": "Warm-up 1km. 2km tempo. Then 4×30s surges at sprint effort with 90s jog recovery. Cool-down 1km. The surges train you to push when tired — exactly like the run after the bike.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-24",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-25",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 45min → Run 4km",
+          "description": "Your biggest brick. Bike 45 min at race intensity. Transition under 90 seconds. Run 4km as close to race pace as possible (5:30 min/km). This proves you can do it on race day.",
+          "distanceMeters": 4000,
+          "durationMinutes": 45,
+          "drillSlugs": [],
+          "weekNumber": 16
+        },
+        {
+          "date": "2026-07-26",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Recovery from the big brick.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 16
+        }
+      ]
+    },
+    {
+      "weekNumber": 17,
+      "label": "Week 17  Jul 27–Aug 2",
+      "startDate": "2026-07-27",
+      "endDate": "2026-08-02",
+      "phaseNumber": 3,
+      "trainings": [
+        {
+          "date": "2026-07-27",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 4×400m at race pace, 50s rest. Cool-down 200m. You're peaking. These 400m reps at race pace should feel controlled, not desperate.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-07-28",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 6km",
+          "description": "Easy and relaxed. Let your body absorb the training from Week 16's big brick.",
+          "distanceMeters": 6000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-07-29",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 2,000m",
+          "description": "Warm-up 200m. Main: 1,600m at race-easy effort (sustainable, smooth). Cool-down 200m. Confident, controlled swimming.",
+          "distanceMeters": 2000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-07-30",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Race-Pace Run 5km",
+          "description": "Warm-up 1km. Main: 3km at race pace (5:20 min/km). Cool-down 1km. This is your sharpest race pace run of the plan. Note your splits.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-07-31",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-08-01",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 65 min",
+          "description": "Warm-up 10 min. Main: 45 min at race intensity. Cool-down 10 min. Start reducing duration from here as taper approaches.",
+          "distanceMeters": null,
+          "durationMinutes": 65,
+          "drillSlugs": [],
+          "weekNumber": 17
+        },
+        {
+          "date": "2026-08-02",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and recovery.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 17
+        }
+      ]
+    },
+    {
+      "weekNumber": 18,
+      "label": "Week 18  Aug 3–9",
+      "startDate": "2026-08-03",
+      "endDate": "2026-08-09",
+      "phaseNumber": 4,
+      "trainings": [
+        {
+          "date": "2026-08-03",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,800m",
+          "description": "Warm-up 200m. Main: 4×300m at race pace, 45s rest. Cool-down 200m. Volume drops 15%, intensity stays. You should feel good in the water.",
+          "distanceMeters": 1800,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-04",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5.5km",
+          "description": "Easy effort. Welcome to the taper! Your body will now absorb all the hard work. Don't be alarmed if you feel a bit flat this week — it's normal.",
+          "distanceMeters": 5500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-05",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,600m",
+          "description": "Warm-up 200m. Drill: 100m. Main: 1,000m at race-easy pace. Cool-down 200m. Smooth, efficient, confident.",
+          "distanceMeters": 1600,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-06",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Sharpener Run 5km",
+          "description": "Warm-up 1km. Main: 2km at race pace. 2 min rest. 3×1 min fast. Cool-down 1km. Keeps your legs sharp without accumulating fatigue.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-07",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-08",
+          "dayOfWeek": 5,
+          "sport": "brick",
+          "title": "Brick: Bike 30min → Run 2km",
+          "description": "Shorter brick — maintain sharpness, not volume. Bike 30 min at race intensity. Run 2km at race pace. Feel how good your legs are becoming.",
+          "distanceMeters": 2000,
+          "durationMinutes": 30,
+          "drillSlugs": [],
+          "weekNumber": 18
+        },
+        {
+          "date": "2026-08-09",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 18
+        }
+      ]
+    },
+    {
+      "weekNumber": 19,
+      "label": "Week 19  Aug 10–16",
+      "startDate": "2026-08-10",
+      "endDate": "2026-08-16",
+      "phaseNumber": 4,
+      "trainings": [
+        {
+          "date": "2026-08-10",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,600m",
+          "description": "Warm-up 200m. Main: 3×300m race pace, 45s rest. Cool-down 400m. Less volume, same sharpness. You'll feel fast in the water.",
+          "distanceMeters": 1600,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-11",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 5km",
+          "description": "Easy, enjoyable run. You're 3 weeks from race day. Trust your fitness — it's built.",
+          "distanceMeters": 5000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-12",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,400m",
+          "description": "Warm-up 200m. Main: 800m at race-easy effort. Cool-down 200m. Short, sharp, confident.",
+          "distanceMeters": 1400,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-13",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 4km",
+          "description": "Easy short run. Resist the urge to prove fitness in training. Save it for race day.",
+          "distanceMeters": 4000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-14",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-15",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 45 min",
+          "description": "Easy-moderate ride with 2×5 min at race effort to stay sharp. This is your last real bike session.",
+          "distanceMeters": null,
+          "durationMinutes": 45,
+          "drillSlugs": [],
+          "weekNumber": 19
+        },
+        {
+          "date": "2026-08-16",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 19
+        }
+      ]
+    },
+    {
+      "weekNumber": 20,
+      "label": "Week 20  Aug 17–23",
+      "startDate": "2026-08-17",
+      "endDate": "2026-08-23",
+      "phaseNumber": 4,
+      "trainings": [
+        {
+          "date": "2026-08-17",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,400m",
+          "description": "Warm-up 200m. Main: 4×200m race pace, 30s rest. Cool-down 200m. Short and sharp. You should feel strong.",
+          "distanceMeters": 1400,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-18",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 4.5km",
+          "description": "Easy run. 2 weeks to race day! Start visualizing your transitions, your race plan.",
+          "distanceMeters": 4500,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-19",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 1,200m",
+          "description": "Warm-up 200m. Drill: 100m. Main: 600m race-easy. Cool-down 200m. Keep the water feel fresh.",
+          "distanceMeters": 1200,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-20",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Sharpener Run 4km",
+          "description": "Warm-up 1km. Main: 2km at race pace. Cool-down 1km. Last hard run effort. Note how good it feels.",
+          "distanceMeters": 4000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-21",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest day.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-22",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Bike 30 min",
+          "description": "Easy spin. Just keep the legs loose. No effort required.",
+          "distanceMeters": null,
+          "durationMinutes": 30,
+          "drillSlugs": [],
+          "weekNumber": 20
+        },
+        {
+          "date": "2026-08-23",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 20
+        }
+      ]
+    },
+    {
+      "weekNumber": 21,
+      "label": "Week 21  Aug 24–30",
+      "startDate": "2026-08-24",
+      "endDate": "2026-08-30",
+      "phaseNumber": 4,
+      "trainings": [
+        {
+          "date": "2026-08-24",
+          "dayOfWeek": 0,
+          "sport": "swim",
+          "title": "Swim 1,000m",
+          "description": "Warm-up 200m. Main: 2×250m race pace, 45s rest. Cool-down 300m. Very light. Just feel the water.",
+          "distanceMeters": 1000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-25",
+          "dayOfWeek": 1,
+          "sport": "run",
+          "title": "Easy Run 4km",
+          "description": "Easy short run. Race week next week! Keep it gentle.",
+          "distanceMeters": 4000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-26",
+          "dayOfWeek": 2,
+          "sport": "swim",
+          "title": "Swim 800m",
+          "description": "Warm-up 150m. Main: 4×100m at race pace with long 40s rest. Cool-down 150m. Short and crisp.",
+          "distanceMeters": 800,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-27",
+          "dayOfWeek": 3,
+          "sport": "run",
+          "title": "Easy Run 3km",
+          "description": "Short easy jog. Legs should feel fresh and springy — that's the taper working!",
+          "distanceMeters": 3000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-28",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest. Final rest day before race week.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-29",
+          "dayOfWeek": 5,
+          "sport": "bike",
+          "title": "Easy Spin 20 min",
+          "description": "Very light ride. Just to keep legs loose. This is your last bike before race day.",
+          "distanceMeters": null,
+          "durationMinutes": 20,
+          "drillSlugs": [],
+          "weekNumber": 21
+        },
+        {
+          "date": "2026-08-30",
+          "dayOfWeek": 6,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest and begin pre-race preparation.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 21
+        }
+      ]
+    },
+    {
+      "weekNumber": 22,
+      "label": "Race Week  Sep 1–6",
+      "startDate": "2026-08-31",
+      "endDate": "2026-09-06",
+      "phaseNumber": 4,
+      "trainings": [
+        {
+          "date": "2026-08-31",
+          "dayOfWeek": 0,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest. Prepare kit, check bike.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-01",
+          "dayOfWeek": 1,
+          "sport": "swim",
+          "title": "Swim 600m",
+          "description": "Very easy 600m. Warm-up only. Drills and easy laps. No effort whatsoever. Just feel the water and relax.",
+          "distanceMeters": 600,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-02",
+          "dayOfWeek": 2,
+          "sport": "run",
+          "title": "Easy Jog 3km",
+          "description": "Very easy 3km jog. Just to keep legs loose. Last run before race day.",
+          "distanceMeters": 3000,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-03",
+          "dayOfWeek": 3,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest. Finalize race kit. Lay everything out: goggles, wetsuit (if needed), bike helmet, race number, running shoes. Prepare race-day nutrition.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-04",
+          "dayOfWeek": 4,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Full rest. Travel to race venue if needed. Light walk only. Early bedtime.",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-05",
+          "dayOfWeek": 5,
+          "sport": "rest",
+          "title": "Rest",
+          "description": "Rest. If possible, rack your bike at the venue. Do a quick 10-minute easy jog or swim to stay loose. Carb-load dinner tonight. Early to bed!",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        },
+        {
+          "date": "2026-09-06",
+          "dayOfWeek": 6,
+          "sport": "race",
+          "title": "🏅 RACE DAY!",
+          "description": "Sprint Triathlon: 1km Swim → 20km Bike → 5km Run. Target finish: 60–65 minutes. Start the swim easy (first 200m), settle in. Hammer the bike — it's your strength. Run strong. Enjoy every moment — you've earned this!",
+          "distanceMeters": null,
+          "durationMinutes": null,
+          "drillSlugs": [],
+          "weekNumber": 22
+        }
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "name": "Catch-Up Drill",
+      "slug": "catch-up",
+      "description": "One arm stays fully extended in front while the other completes a full stroke cycle. Your pulling hand \"catches up\" to the resting hand before the other arm begins pulling. This forces you to pause and glide, teaching you to have one arm fully extended at all times — the foundation of a long, efficient freestyle stroke. It also slows things down so you can feel each phase of the stroke."
+    },
+    {
+      "name": "Finger-Drag Drill",
+      "slug": "finger-drag",
+      "description": "During the recovery phase (when your arm is out of the water moving forward), drag your fingertips lightly along the surface of the water. This forces your elbow to stay high during recovery, which is the correct position. A dropped elbow during recovery is one of the most common technique flaws and leads to a weak entry and poor catch."
+    },
+    {
+      "name": "Side-Kick Drill",
+      "slug": "side-kick",
+      "description": "You swim on your side — bottom arm extended in front, top arm resting on your thigh — and kick continuously while keeping your face in the water, rotating only to breathe. This teaches body rotation, which is the engine of freestyle. Rotating your hips with each stroke lets you use your powerful back and core muscles rather than just your shoulders, which delays fatigue significantly."
+    },
+    {
+      "name": "Single-Arm Drill",
+      "slug": "single-arm",
+      "description": "One arm stays at your side (or extended in front) while you swim using only the other arm. This isolates each arm so you can focus on the full stroke mechanics — entry, catch, pull, and push — without the other arm compensating. Swimmers often discover their weaker arm has a very different stroke than their stronger one. Alternate arms every 25m or every 6 strokes."
+    },
+    {
+      "name": "Fist Drill",
+      "slug": "fist",
+      "description": "You swim normal freestyle but with both hands balled into fists. Since you can't use your palm to catch the water, you're forced to use your forearm as the main surface. This teaches you the \"high elbow catch\" — where the forearm faces backward (not downward) in the water during the pull. When you open your fists again, your hands feel enormous and the catch feels much more powerful. Do 50m with fists, then 50m normal to feel the contrast."
+    },
+    {
+      "name": "Open-Water Sighting",
+      "slug": "open-water-sighting",
+      "description": "Every 8–10 strokes, lift your eyes (not your whole head) just above the water line to look forward — like a crocodile — then rotate to breathe as normal. This lets you swim in a straight line in open water where there's no black line on the pool floor to follow. Lifting your full head causes your hips to drop and adds drag, so the key is a quick, minimal lift — just enough to spot a buoy."
+    }
+  ]
+}

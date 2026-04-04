@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "home": "Start",
+    "plan": "Plan",
+    "chat": "Chat",
+    "settings": "Einstellungen"
+  },
+  "home": {
+    "title": "TriTrainer",
+    "subtitle": "Dein Trainingsbegleiter",
+    "today": "Heute",
+    "restDay": "Ruhetag",
+    "noTraining": "Kein Training geplant",
+    "beforePlan": "Training beginnt am 6. April 2026. Freu dich drauf!",
+    "afterPlan": "Dein Plan ist abgeschlossen. Was für eine Reise!",
+    "days": "Tage",
+    "weeks": "Wochen",
+    "toGo": "noch"
+  },
+  "plan": {
+    "title": "Trainingsplan",
+    "subtitle": "22-Wochen-Programm",
+    "current": "Aktuell",
+    "phase": "Phase"
+  },
+  "chat": {
+    "title": "Chat",
+    "subtitle": "Frag zu deinem Trainingsplan",
+    "placeholder": "Frag zu deinem Training...",
+    "empty": "Frag mich alles über deinen Trainingsplan, Technik, Ernährung oder Rennstrategie."
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "profile": "Profil",
+    "name": "Name",
+    "height": "Größe (cm)",
+    "weight": "Gewicht (kg)",
+    "language": "Sprache",
+    "theme": "Erscheinungsbild",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "auto": "Auto",
+    "gear": "Laufschuhe",
+    "addShoe": "Hinzufügen",
+    "noShoes": "Noch keine Schuhe hinzugefügt. Füge deine Laufschuhe hinzu, um den Verschleiß zu verfolgen.",
+    "used": "gelaufen",
+    "remaining": "verbleibend",
+    "worn": "Verschleiß",
+    "save": "Änderungen speichern",
+    "saving": "Speichert...",
+    "signOut": "Abmelden",
+    "since": "Seit"
+  },
+  "training": {
+    "details": "Trainingsdetails",
+    "drills": "Übungen erklärt",
+    "complete": "Als erledigt markieren",
+    "completed": "Erledigt!",
+    "modifiedByAi": "Von KI-Assistent geändert",
+    "viewOriginal": "Original anzeigen"
+  },
+  "sport": {
+    "swim": "Schwimmen",
+    "run": "Laufen",
+    "bike": "Radfahren",
+    "brick": "Koppeltraining",
+    "rest": "Ruhetag",
+    "race": "Renntag"
+  }
+}

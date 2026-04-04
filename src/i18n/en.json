@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "home": "Home",
+    "plan": "Plan",
+    "chat": "Chat",
+    "settings": "Settings"
+  },
+  "home": {
+    "title": "TriTrainer",
+    "subtitle": "Your training companion",
+    "today": "Today",
+    "restDay": "Rest Day",
+    "noTraining": "No training scheduled",
+    "beforePlan": "Training starts April 6, 2026. Get excited!",
+    "afterPlan": "Your plan has concluded. What a journey!",
+    "days": "days",
+    "weeks": "weeks",
+    "toGo": "to go"
+  },
+  "plan": {
+    "title": "Training Plan",
+    "subtitle": "22-week programme",
+    "current": "Current",
+    "phase": "Phase"
+  },
+  "chat": {
+    "title": "Chat",
+    "subtitle": "Ask about your training plan",
+    "placeholder": "Ask about your training...",
+    "empty": "Ask me anything about your training plan, technique, nutrition, or race strategy."
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "name": "Name",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto",
+    "gear": "Running Shoes",
+    "addShoe": "Add",
+    "noShoes": "No shoes added yet. Add your running shoes to track their wear.",
+    "used": "used",
+    "remaining": "remaining",
+    "worn": "worn",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "signOut": "Sign Out",
+    "since": "Since"
+  },
+  "training": {
+    "details": "Workout Details",
+    "drills": "Drills Explained",
+    "complete": "Mark as Complete",
+    "completed": "Completed!",
+    "modifiedByAi": "Modified by AI Assistant",
+    "viewOriginal": "View original"
+  },
+  "sport": {
+    "swim": "Swim",
+    "run": "Run",
+    "bike": "Bike",
+    "brick": "Brick",
+    "rest": "Rest",
+    "race": "Race Day"
+  }
+}
