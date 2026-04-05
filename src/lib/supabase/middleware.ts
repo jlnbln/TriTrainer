@@ -22,19 +22,26 @@ export async function updateSession(request: NextRequest) {
           );
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            // Extend maxAge to 30 days so the PWA session survives long gaps
+            supabaseResponse.cookies.set(name, value, {
+              ...options,
+              maxAge: 60 * 60 * 24 * 30,
+            })
           );
         },
       },
     }
   );
 
+  // Use getSession() instead of getUser() — reads JWT locally without a
+  // network round-trip, so a slow/absent connection on PWA cold-start won't
+  // falsely redirect to login.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   if (
-    !user &&
+    !session &&
     !request.nextUrl.pathname.startsWith('/login') &&
     !request.nextUrl.pathname.startsWith('/api/auth')
   ) {
