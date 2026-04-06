@@ -9,12 +9,12 @@ export default async function TrainingPage({
 }) {
   const { id } = await params;
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: training } = await supabase
     .from('trainings')
     .select(`
       *,
-      completions (id, completed_at, notes, actual_distance_meters, perceived_effort),
       weeks!inner (
         week_number, label,
         phases!inner (phase_number, name, description)
@@ -35,12 +35,21 @@ export default async function TrainingPage({
     drills = data || [];
   }
 
-  // Get user ID for completion
-  const { data: { user } } = await supabase.auth.getUser();
+  // Fetch completion separately with explicit user filter
+  const { data: completion } = user
+    ? await supabase
+        .from('completions')
+        .select('id, completed_at, notes, actual_distance_meters, perceived_effort')
+        .eq('training_id', id)
+        .eq('user_id', user.id)
+        .maybeSingle()
+    : { data: null };
+
+  const trainingWithCompletion = { ...training, completions: completion ? [completion] : [] };
 
   return (
     <TrainingDetail
-      training={training}
+      training={trainingWithCompletion}
       drills={drills}
       userId={user?.id || ''}
     />

@@ -3,19 +3,31 @@ import { PlanView } from './plan-view';
 
 export default async function PlanPage() {
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: weeks } = await supabase
     .from('weeks')
     .select(`
       *,
       phases!inner(phase_number, name, description),
-      trainings(id, day_of_week, date, sport, title, distance_meters, duration_minutes, completions(id))
+      trainings(id, day_of_week, date, sport, title, distance_meters, duration_minutes)
     `)
     .order('week_number', { ascending: true });
 
+  const { data: completions } = user
+    ? await supabase
+        .from('completions')
+        .select('training_id')
+        .eq('user_id', user.id)
+    : { data: [] };
+
+  const completedSet = new Set((completions || []).map((c: any) => c.training_id));
+
   const sortedWeeks = (weeks || []).map((week: any) => ({
     ...week,
-    trainings: [...(week.trainings || [])].sort((a: any, b: any) => a.day_of_week - b.day_of_week),
+    trainings: [...(week.trainings || [])]
+      .sort((a: any, b: any) => a.day_of_week - b.day_of_week)
+      .map((t: any) => ({ ...t, completions: completedSet.has(t.id) ? [{ id: t.id }] : [] })),
   }));
 
   const today = new Date();
