@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SPORT_CONFIG } from '@/lib/constants';
 import { Textarea } from '@/components/ui/textarea';
-import { createClient } from '@/lib/supabase/client';
 import type { Sport } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { markComplete, markIncomplete, updateNotes } from './actions';
 
 interface TrainingDetailProps {
   training: any;
@@ -14,9 +14,8 @@ interface TrainingDetailProps {
   userId: string;
 }
 
-export function TrainingDetail({ training, drills, userId }: TrainingDetailProps) {
+export function TrainingDetail({ training, drills }: TrainingDetailProps) {
   const router = useRouter();
-  const supabase = createClient();
   const sport = training.sport as Sport;
   const config = SPORT_CONFIG[sport];
   const week = training.weeks;
@@ -36,18 +35,12 @@ export function TrainingDetail({ training, drills, userId }: TrainingDetailProps
     setSaving(true);
     try {
       if (isCompleted) {
-        await supabase.from('completions').delete().eq('training_id', training.id);
+        await markIncomplete(training.id);
         setIsCompleted(false);
       } else {
-        await supabase.from('completions').upsert({
-          training_id: training.id,
-          user_id: userId,
-          notes: notes || null,
-          actual_distance_meters: training.distance_meters,
-        }, { onConflict: 'training_id' });
+        await markComplete(training.id, training.distance_meters, notes);
         setIsCompleted(true);
       }
-      router.refresh();
     } finally {
       setSaving(false);
     }
@@ -55,11 +48,7 @@ export function TrainingDetail({ training, drills, userId }: TrainingDetailProps
 
   async function saveNotes() {
     if (!isCompleted) return;
-    await supabase.from('completions').upsert({
-      training_id: training.id,
-      user_id: userId,
-      notes: notes || null,
-    }, { onConflict: 'training_id' });
+    await updateNotes(training.id, notes);
   }
 
   function toggleDrill(slug: string) {
