@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation';
 export function ChatFab() {
   const pathname = usePathname();
   const isActive = pathname.startsWith('/chat');
+  const isTrainingDetail = pathname.startsWith('/training/');
 
-  // Don't show the FAB on the chat page itself
-  if (isActive) return null;
+  // Hide on the chat page itself and on training detail (has its own bottom CTA)
+  if (isActive || isTrainingDetail) return null;
 
   return (
     <Link

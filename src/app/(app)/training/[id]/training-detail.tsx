@@ -425,7 +425,7 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
 
       {/* Fixed bottom CTA */}
       {sport !== 'rest' && (
-        <div className="fixed bottom-20 left-0 w-full p-5 bg-gradient-to-t from-background via-background/95 to-transparent pt-12 max-w-lg mx-auto left-1/2 -translate-x-1/2">
+        <div className="fixed left-1/2 -translate-x-1/2 w-full max-w-lg px-5 pb-5 pt-12 bg-gradient-to-t from-background via-background/95 to-transparent" style={{ bottom: 'calc(56px + env(safe-area-inset-bottom, 0px))' }}>
           <div className="flex gap-3">
             {/* Upload workout button */}
             <button
@@ -461,7 +461,6 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
               {isCompleted ? 'Completed!' : 'Mark as Complete'}
             </button>
           </div>
-          <div className="h-safe-area-inset-bottom" />
         </div>
       )}
     </div>
