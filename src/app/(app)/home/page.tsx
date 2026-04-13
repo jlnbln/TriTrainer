@@ -9,11 +9,10 @@ export default async function HomePage() {
   const today = new Date();
   const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
-  const { data: training } = await supabase
-    .from('trainings')
-    .select('*')
-    .eq('date', dateStr)
-    .single();
+  const [{ data: training }, { data: profile }] = await Promise.all([
+    supabase.from('trainings').select('*').eq('date', dateStr).single(),
+    user ? supabase.from('profiles').select('race_date, swim_distance_m, bike_distance_km, run_distance_km').eq('id', user.id).single() : { data: null },
+  ]);
 
   const { data: completion } = training && user
     ? await supabase
@@ -38,7 +37,12 @@ export default async function HomePage() {
 
   return (
     <div className="px-5 pt-6 pb-6 max-w-lg mx-auto space-y-6">
-      <Countdown />
+      <Countdown
+        raceDate={profile?.race_date ?? undefined}
+        swimDistanceM={profile?.swim_distance_m ?? 750}
+        bikeDistanceKm={profile?.bike_distance_km ?? 20}
+        runDistanceKm={profile?.run_distance_km ?? 5}
+      />
       <TodayTraining training={trainingWithCompletion} week={week} dateStr={dateStr} />
     </div>
   );

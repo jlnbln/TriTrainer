@@ -39,7 +39,13 @@ export default async function TrainingPage({
   const { data: completion } = user
     ? await supabase
         .from('completions')
-        .select('id, completed_at, notes, actual_distance_meters, perceived_effort')
+        .select(`
+          id, completed_at, notes, actual_distance_meters, perceived_effort,
+          workout_date, workout_name, workout_duration_seconds,
+          avg_heart_rate_bpm, avg_pace_seconds, calories_active, calories_total,
+          elevation_meters, avg_cadence_spm, avg_power_watts,
+          pool_length_meters, laps, effort_level, workout_data
+        `)
         .eq('training_id', id)
         .eq('user_id', user.id)
         .maybeSingle()

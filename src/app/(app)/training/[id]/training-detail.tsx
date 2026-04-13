@@ -1,17 +1,37 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { SPORT_CONFIG } from '@/lib/constants';
 import { Textarea } from '@/components/ui/textarea';
 import type { Sport } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { markComplete, markIncomplete, updateNotes } from './actions';
+import { markComplete, markIncomplete, updateNotes, saveWorkoutData, type WorkoutData } from './actions';
 
 interface TrainingDetailProps {
   training: any;
   drills: any[];
   userId: string;
+}
+
+function formatDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+function formatPace(seconds: number, sport: string): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  const unit = sport === 'swim' ? '/100m' : '/km';
+  return `${m}'${String(s).padStart(2, '0')}"${unit}`;
+}
+
+function formatDistance(meters: number): string {
+  if (meters >= 1000) return `${(meters / 1000).toFixed(2).replace(/\.?0+$/, '')} km`;
+  return `${meters} m`;
 }
 
 export function TrainingDetail({ training, drills }: TrainingDetailProps) {
@@ -27,6 +47,13 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
   const [saving, setSaving] = useState(false);
   const [expandedDrills, setExpandedDrills] = useState<Set<string>>(new Set());
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [workoutData, setWorkoutData] = useState<WorkoutData | null>(
+    completion?.workout_data || null
+  );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const dateFormatted = new Date(training.date + 'T12:00:00Z').toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric',
   });
@@ -37,6 +64,7 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
       if (isCompleted) {
         await markIncomplete(training.id);
         setIsCompleted(false);
+        setWorkoutData(null);
       } else {
         await markComplete(training.id, training.distance_meters, notes);
         setIsCompleted(true);
@@ -59,6 +87,39 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
     });
   }
 
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch('/api/analyze-workout', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Analysis failed');
+      }
+
+      const { workout } = await response.json();
+      await saveWorkoutData(training.id, workout);
+      setWorkoutData(workout);
+      setIsCompleted(true);
+    } catch (err) {
+      setUploadError((err as Error).message);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  }
+
   return (
     <div className="max-w-lg mx-auto pb-48">
       {/* Top bar */}
@@ -77,7 +138,6 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
       {/* Hero */}
       <section className="px-5 mb-8">
         <div className="flex flex-col gap-3">
-          {/* Sport badge */}
           <div
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full w-fit text-white text-xs font-headline font-bold uppercase tracking-widest"
             style={{ background: `var(--sport-${sport})` }}
@@ -107,7 +167,6 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
               </p>
             </div>
 
-            {/* Large icon */}
             <div
               className="w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 relative overflow-hidden"
               style={{ background: `color-mix(in srgb, var(--sport-${sport}) 12%, transparent)` }}
@@ -193,6 +252,154 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
         </div>
       )}
 
+      {/* Actual Workout Data */}
+      {workoutData && (
+        <div className="mx-5 mb-6 bg-card rounded-2xl border border-border/40 relative overflow-hidden">
+          <div
+            className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+            style={{ background: `var(--sport-${sport})` }}
+          />
+          <div className="p-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3
+                className="font-headline font-bold text-[10px] uppercase tracking-[0.15em]"
+                style={{ color: `var(--sport-${sport})` }}
+              >
+                Actual Workout
+              </h3>
+              <div className="flex items-center gap-1.5">
+                {workoutData.workout_date && (
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(workoutData.workout_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                )}
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  title="Replace screenshot"
+                >
+                  <span className="material-symbols-outlined text-sm">refresh</span>
+                </button>
+                <button
+                  onClick={async () => {
+                    setSaving(true);
+                    try {
+                      await markIncomplete(training.id);
+                      setWorkoutData(null);
+                      setIsCompleted(false);
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                  className="text-muted-foreground hover:text-destructive transition-colors"
+                  title="Delete workout data"
+                >
+                  <span className="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
+            </div>
+
+            {workoutData.workout_name && (
+              <p className="text-sm font-medium text-foreground mb-3">{workoutData.workout_name}</p>
+            )}
+
+            <div className="grid grid-cols-2 gap-3">
+              {workoutData.duration_seconds && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Duration</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{formatDuration(workoutData.duration_seconds)}</p>
+                </div>
+              )}
+              {workoutData.distance_meters && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Distance</p>
+                  <p className="font-headline font-bold text-lg" style={{ color: `var(--sport-${sport})` }}>
+                    {formatDistance(workoutData.distance_meters)}
+                  </p>
+                </div>
+              )}
+              {workoutData.avg_pace_seconds && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Avg Pace</p>
+                  <p className="font-headline font-bold text-lg text-foreground">
+                    {formatPace(workoutData.avg_pace_seconds, workoutData.sport_type || sport)}
+                  </p>
+                </div>
+              )}
+              {workoutData.avg_heart_rate_bpm && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Avg HR</p>
+                  <p className="font-headline font-bold text-lg text-red-400">{workoutData.avg_heart_rate_bpm} bpm</p>
+                </div>
+              )}
+              {workoutData.calories_active && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Active Cal</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{workoutData.calories_active} kcal</p>
+                </div>
+              )}
+              {workoutData.elevation_meters && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Elevation</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{workoutData.elevation_meters} m</p>
+                </div>
+              )}
+              {workoutData.avg_cadence_spm && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Cadence</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{workoutData.avg_cadence_spm} spm</p>
+                </div>
+              )}
+              {workoutData.avg_power_watts && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Avg Power</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{workoutData.avg_power_watts} W</p>
+                </div>
+              )}
+              {workoutData.laps && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Laps</p>
+                  <p className="font-headline font-bold text-lg text-foreground">
+                    {workoutData.laps} × {workoutData.pool_length_meters ?? '?'}m
+                  </p>
+                </div>
+              )}
+              {workoutData.effort_level && (
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Effort</p>
+                  <p className="font-headline font-bold text-lg text-foreground">{workoutData.effort_level}/10</p>
+                </div>
+              )}
+            </div>
+
+            {/* Sub-activities for brick workouts */}
+            {workoutData.sub_activities && workoutData.sub_activities.length > 0 && (
+              <div className="mt-4 space-y-2">
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-headline">Segments</p>
+                {(workoutData.sub_activities as any[]).map((sub, i) => (
+                  <div key={i} className="bg-muted/40 rounded-xl p-3">
+                    <p className="text-xs font-headline font-semibold text-foreground mb-1">{sub.workout_name}</p>
+                    <div className="flex gap-3 flex-wrap text-xs text-muted-foreground">
+                      {sub.duration_seconds && <span>{formatDuration(sub.duration_seconds)}</span>}
+                      {sub.distance_meters && <span>{formatDistance(sub.distance_meters)}</span>}
+                      {sub.avg_pace_seconds && <span>{formatPace(sub.avg_pace_seconds, sub.sport_type)}</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Upload error */}
+      {uploadError && (
+        <div className="mx-5 mb-4 rounded-xl bg-destructive/10 border border-destructive/20 p-3">
+          <p className="text-sm text-destructive">{uploadError}</p>
+        </div>
+      )}
+
       {/* Notes (when completed) */}
       {sport !== 'rest' && isCompleted && (
         <div className="mx-5 mb-4">
@@ -207,24 +414,53 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
         </div>
       )}
 
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       {/* Fixed bottom CTA */}
       {sport !== 'rest' && (
         <div className="fixed bottom-20 left-0 w-full p-5 bg-gradient-to-t from-background via-background/95 to-transparent pt-12 max-w-lg mx-auto left-1/2 -translate-x-1/2">
-          <button
-            onClick={toggleCompletion}
-            disabled={saving}
-            className={cn(
-              'w-full py-4 rounded-2xl font-headline font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-lg',
-              isCompleted
-                ? 'bg-gradient-to-r from-[color:var(--sport-run)] to-emerald-500 text-black shadow-[color:var(--sport-run)]/20'
-                : 'border-2 border-border text-foreground'
-            )}
-          >
-            <span className="material-symbols-outlined" style={isCompleted ? { fontVariationSettings: "'FILL' 1" } : {}}>
-              check_circle
-            </span>
-            {isCompleted ? 'Completed!' : 'Mark as Complete'}
-          </button>
+          <div className="flex gap-3">
+            {/* Upload workout button */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className={cn(
+                'flex-shrink-0 h-14 w-14 rounded-2xl border-2 border-border flex items-center justify-center transition-all active:scale-[0.98]',
+                uploading && 'opacity-50'
+              )}
+              title="Upload Apple Fitness screenshot"
+            >
+              {uploading ? (
+                <span className="material-symbols-outlined text-muted-foreground text-xl animate-spin">progress_activity</span>
+              ) : (
+                <span className="material-symbols-outlined text-muted-foreground text-xl">upload</span>
+              )}
+            </button>
+
+            {/* Complete button */}
+            <button
+              onClick={toggleCompletion}
+              disabled={saving || uploading}
+              className={cn(
+                'flex-1 py-4 rounded-2xl font-headline font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-lg',
+                isCompleted
+                  ? 'bg-gradient-to-r from-[color:var(--sport-run)] to-emerald-500 text-black shadow-[color:var(--sport-run)]/20'
+                  : 'border-2 border-border text-foreground'
+              )}
+            >
+              <span className="material-symbols-outlined" style={isCompleted ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                check_circle
+              </span>
+              {isCompleted ? 'Completed!' : 'Mark as Complete'}
+            </button>
+          </div>
           <div className="h-safe-area-inset-bottom" />
         </div>
       )}

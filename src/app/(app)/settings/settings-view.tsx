@@ -35,6 +35,15 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
   const [saving, setSaving] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // Race config
+  const [raceDate, setRaceDate] = useState(profile?.race_date || '2026-09-06');
+  const [swimDistanceM, setSwimDistanceM] = useState(profile?.swim_distance_m ?? 750);
+  const [bikeDistanceKm, setBikeDistanceKm] = useState(profile?.bike_distance_km ?? 20);
+  const [runDistanceKm, setRunDistanceKm] = useState(profile?.run_distance_km ?? 5);
+  const [swimGoalMinutes, setSwimGoalMinutes] = useState(profile?.swim_goal_minutes ?? '');
+  const [bikeGoalMinutes, setBikeGoalMinutes] = useState(profile?.bike_goal_minutes ?? '');
+  const [runGoalMinutes, setRunGoalMinutes] = useState(profile?.run_goal_minutes ?? '');
+
   const [newShoeName, setNewShoeName] = useState('');
   const [newShoeDate, setNewShoeDate] = useState('');
   const [showAddShoe, setShowAddShoe] = useState(false);
@@ -51,6 +60,13 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
       weight_kg: weightKg ? Number(weightKg) : null,
       language,
       theme: dbTheme,
+      race_date: raceDate || null,
+      swim_distance_m: swimDistanceM ? Number(swimDistanceM) : 750,
+      bike_distance_km: bikeDistanceKm ? Number(bikeDistanceKm) : 20,
+      run_distance_km: runDistanceKm ? Number(runDistanceKm) : 5,
+      swim_goal_minutes: swimGoalMinutes ? Number(swimGoalMinutes) : null,
+      bike_goal_minutes: bikeGoalMinutes ? Number(bikeGoalMinutes) : null,
+      run_goal_minutes: runGoalMinutes ? Number(runGoalMinutes) : null,
     });
     setSaving(false);
     if (error) alert('Failed to save: ' + error.message);
@@ -135,6 +151,136 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
                     className="font-headline font-bold text-lg text-primary bg-transparent border-0 px-0 h-auto py-0 w-14 focus-visible:ring-0"
                   />
                   <span className="text-xs text-muted-foreground">kg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Race Configuration */}
+      <section className="space-y-3">
+        <h3 className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">
+          Race Configuration
+        </h3>
+        <div className="bg-card rounded-2xl border border-border/40 overflow-hidden relative">
+          <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style={{ background: 'var(--sport-race)' }} />
+          <div className="p-5 space-y-5">
+
+            {/* Race date */}
+            <div>
+              <Label className="font-headline text-[10px] uppercase tracking-widest text-muted-foreground">Race Date</Label>
+              <Input
+                type="date"
+                value={raceDate}
+                onChange={(e) => setRaceDate(e.target.value)}
+                className="mt-1 bg-muted border-0 font-headline font-bold"
+              />
+            </div>
+
+            {/* Distances */}
+            <div>
+              <p className="font-headline text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Distances</p>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-swim)' }}>pool</span>
+                    Swim
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={swimDistanceM}
+                      onChange={(e) => setSwimDistanceM(e.target.value as any)}
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">m</span>
+                  </div>
+                </div>
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-bike)' }}>directions_bike</span>
+                    Bike
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={bikeDistanceKm}
+                      onChange={(e) => setBikeDistanceKm(e.target.value as any)}
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">km</span>
+                  </div>
+                </div>
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-run)' }}>directions_run</span>
+                    Run
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={runDistanceKm}
+                      onChange={(e) => setRunDistanceKm(e.target.value as any)}
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">km</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Goal times */}
+            <div>
+              <p className="font-headline text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Goal Times</p>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-swim)' }}>pool</span>
+                    Swim
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={swimGoalMinutes}
+                      onChange={(e) => setSwimGoalMinutes(e.target.value as any)}
+                      placeholder="–"
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">min</span>
+                  </div>
+                </div>
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-bike)' }}>directions_bike</span>
+                    Bike
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={bikeGoalMinutes}
+                      onChange={(e) => setBikeGoalMinutes(e.target.value as any)}
+                      placeholder="–"
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">min</span>
+                  </div>
+                </div>
+                <div>
+                  <Label className="font-headline text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ color: 'var(--sport-run)' }}>directions_run</span>
+                    Run
+                  </Label>
+                  <div className="flex items-baseline gap-1 mt-1">
+                    <Input
+                      type="number"
+                      value={runGoalMinutes}
+                      onChange={(e) => setRunGoalMinutes(e.target.value as any)}
+                      placeholder="–"
+                      className="font-headline font-bold bg-muted border-0 px-2 h-9"
+                    />
+                    <span className="text-xs text-muted-foreground shrink-0">min</span>
+                  </div>
                 </div>
               </div>
             </div>
