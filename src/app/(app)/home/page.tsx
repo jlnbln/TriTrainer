@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { Countdown } from '@/components/countdown';
 import { TodayTraining } from './today-training';
-import { getTrainingByDate, getWeekById } from '@/lib/data';
 
 function formatDateStr(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -14,7 +13,6 @@ export default function HomePage() {
 
   return (
     <div className="px-5 pt-6 pb-6 max-w-lg mx-auto space-y-6">
-      {/* Countdown uses its own client-side skeleton while mounting */}
       <Suspense fallback={<div className="h-40 animate-pulse rounded-3xl bg-muted" />}>
         <CountdownSection />
       </Suspense>
@@ -50,10 +48,13 @@ async function TodayTrainingSection({ dateStr }: { dateStr: string }) {
   const supabase = await createClient();
   const { data: { session } } = await supabase.auth.getSession();
 
-  // training is cached — returns instantly on repeat visits
-  const training = await getTrainingByDate(dateStr);
+  const { data: training } = await supabase
+    .from('trainings')
+    .select('*')
+    .eq('date', dateStr)
+    .single();
 
-  // completion and week are independent once we have training; fetch in parallel
+  // completion and week are independent once we have training — fetch in parallel
   const [completion, week] = await Promise.all([
     training && session
       ? supabase
@@ -65,7 +66,12 @@ async function TodayTrainingSection({ dateStr }: { dateStr: string }) {
           .then((r) => r.data)
       : Promise.resolve(null),
     training
-      ? getWeekById(training.week_id) // cached
+      ? supabase
+          .from('weeks')
+          .select('*, phases!inner(*)')
+          .eq('id', training.week_id)
+          .single()
+          .then((r) => r.data)
       : Promise.resolve(null),
   ]);
 

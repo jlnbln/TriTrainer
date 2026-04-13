@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { TrainingDetail } from './training-detail';
-import { getTrainingWithDetails, getDrillsBySlugs } from '@/lib/data';
 
 export default async function TrainingPage({
   params,
@@ -22,14 +21,28 @@ async function TrainingContent({ id }: { id: string }) {
   const supabase = await createClient();
   const { data: { session } } = await supabase.auth.getSession();
 
-  // training is cached — returns instantly on repeat visits
-  const training = await getTrainingWithDetails(id);
+  const { data: training } = await supabase
+    .from('trainings')
+    .select(`
+      *,
+      weeks!inner (
+        week_number, label,
+        phases!inner (phase_number, name, description)
+      )
+    `)
+    .eq('id', id)
+    .single();
+
   if (!training) notFound();
 
-  // drills (cached) and completion are independent — fetch in parallel
+  // drills and completion are independent — fetch in parallel
   const [drills, completion] = await Promise.all([
     training.drill_slugs?.length
-      ? getDrillsBySlugs(training.drill_slugs)
+      ? supabase
+          .from('drills')
+          .select('*')
+          .in('slug', training.drill_slugs)
+          .then((r) => r.data ?? [])
       : Promise.resolve([]),
     session
       ? supabase

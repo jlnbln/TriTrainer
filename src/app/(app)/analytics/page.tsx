@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { PLAN_START } from '@/lib/constants';
 import { AnalyticsView } from './analytics-view';
-import { getAllTrainings } from '@/lib/data';
 
 export default function AnalyticsPage() {
   return (
@@ -27,9 +26,13 @@ async function AnalyticsContent() {
   const currentWeekStart = new Date(planStart.getTime() + (currentWeek - 1) * 7 * 24 * 60 * 60 * 1000);
   const currentWeekStartStr = currentWeekStart.toISOString().split('T')[0];
 
-  // trainings (cached), profile, and completions are all independent — fetch in parallel
+  // trainings, profile, and completions are all independent — fetch in parallel
   const [trainings, profile, completions] = await Promise.all([
-    getAllTrainings(),
+    supabase
+      .from('trainings')
+      .select('id, date, sport, title, distance_meters, duration_minutes')
+      .order('date', { ascending: true })
+      .then((r) => r.data ?? []),
     session
       ? supabase
           .from('profiles')
@@ -48,7 +51,7 @@ async function AnalyticsContent() {
             workout_date, workout_data
           `)
           .eq('user_id', session.user.id)
-          .then((r) => r.data)
+          .then((r) => r.data ?? [])
       : Promise.resolve([]),
   ]);
 
@@ -69,7 +72,7 @@ async function AnalyticsContent() {
     (completions || []).map((c: any) => [c.training_id, c]),
   );
 
-  const allTrainings = trainings.map((t: any) => ({
+  const allTrainings = (trainings || []).map((t: any) => ({
     ...t,
     completion: completionByTrainingId.get(t.id) || null,
   }));

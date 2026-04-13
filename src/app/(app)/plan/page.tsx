@@ -1,9 +1,7 @@
 import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { PlanView } from './plan-view';
-import { getWeeksWithTrainings } from '@/lib/data';
 
-// Shell with heading renders immediately; plan data streams in.
 export default function PlanPage() {
   return (
     <div className="max-w-lg mx-auto px-5 pt-6 pb-6">
@@ -26,9 +24,17 @@ async function PlanContent() {
   const supabase = await createClient();
   const { data: { session } } = await supabase.auth.getSession();
 
-  // weeks are cached; completions are user-specific — fetch in parallel
+  // weeks and completions are independent — fetch in parallel
   const [weeks, completions] = await Promise.all([
-    getWeeksWithTrainings(),
+    supabase
+      .from('weeks')
+      .select(`
+        *,
+        phases!inner(phase_number, name, description),
+        trainings(id, day_of_week, date, sport, title, distance_meters, duration_minutes)
+      `)
+      .order('week_number', { ascending: true })
+      .then((r) => r.data),
     session
       ? supabase
           .from('completions')
