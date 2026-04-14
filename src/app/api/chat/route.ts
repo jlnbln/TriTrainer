@@ -201,7 +201,7 @@ export async function POST(request: NextRequest) {
         'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-haiku-4.5',
+        model: 'minimax/minimax-m2.7',
         messages,
         max_tokens: 1024,
       }),
