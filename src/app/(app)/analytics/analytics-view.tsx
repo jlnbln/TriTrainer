@@ -1,6 +1,7 @@
 'use client';
 
 import { SPORT_CONFIG } from '@/lib/constants';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 interface RaceConfig {
   raceDate: string;
@@ -184,10 +185,25 @@ export function AnalyticsView({
   const totalTimeMin = withWorkoutData.reduce((sum, t) => sum + ((t.completion?.workout_duration_seconds || 0) / 60), 0);
   const totalCal = withWorkoutData.reduce((sum, t) => sum + (t.completion?.calories_active || 0), 0);
 
+  // History list: completedTrainings newest-first
+  const historyItems = [...completedTrainings].reverse();
+
   return (
     <div className="max-w-lg mx-auto px-5 pt-4 pb-8">
       <h1 className="font-headline font-extrabold text-3xl tracking-tight mb-1">Analytics</h1>
-      <p className="text-muted-foreground text-sm mb-6">Your progress toward race day</p>
+      <p className="text-muted-foreground text-sm mb-4">Your progress toward race day</p>
+
+      <Tabs defaultValue="overview">
+        <TabsList className="w-full mb-6 bg-card border border-border/40 p-1 h-auto rounded-xl">
+          <TabsTrigger value="overview" className="flex-1 py-2 rounded-lg font-headline text-xs font-bold uppercase tracking-widest data-active:bg-muted data-active:text-primary">
+            Overview
+          </TabsTrigger>
+          <TabsTrigger value="history" className="flex-1 py-2 rounded-lg font-headline text-xs font-bold uppercase tracking-widest data-active:bg-muted data-active:text-primary">
+            History
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview">
 
       {/* Race Countdown */}
       <div
@@ -425,6 +441,104 @@ export function AnalyticsView({
           </div>
         </div>
       </div>
+
+        </TabsContent>
+
+        {/* ── History tab ── */}
+        <TabsContent value="history">
+          {historyItems.length === 0 ? (
+            <div className="bg-card rounded-2xl border border-border/40 p-8 text-center">
+              <span className="material-symbols-outlined text-3xl text-muted-foreground mb-3 block">history</span>
+              <p className="font-headline font-semibold text-foreground mb-1">No completed workouts yet</p>
+              <p className="text-sm text-muted-foreground">Mark sessions as complete to build your training log.</p>
+            </div>
+          ) : (
+            <div className="bg-card rounded-2xl border border-border/40 overflow-hidden">
+              {historyItems.map((t: any, idx: number) => {
+                const config = SPORT_CONFIG[t.sport as keyof typeof SPORT_CONFIG];
+                const c = t.completion;
+                const distM = c?.actual_distance_meters;
+                const dur = c?.workout_duration_seconds;
+                const pace = c?.avg_pace_seconds;
+                const hr = c?.avg_heart_rate_bpm;
+                const dateStr = (c?.workout_date || t.date) + 'T12:00:00Z';
+                const dateFormatted = new Date(dateStr).toLocaleDateString('en-US', {
+                  month: 'short', day: 'numeric',
+                });
+                const dayName = new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short' });
+
+                function fmtDist(m: number) {
+                  return m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${m} m`;
+                }
+                function fmtDur(s: number) {
+                  const h = Math.floor(s / 3600);
+                  const m = Math.floor((s % 3600) / 60);
+                  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+                }
+                function fmtPace(s: number) {
+                  const m = Math.floor(s / 60);
+                  const sec = s % 60;
+                  const unit = t.sport === 'swim' ? '/100m' : '/km';
+                  return `${m}'${String(sec).padStart(2, '0')}"${unit}`;
+                }
+
+                return (
+                  <a
+                    key={t.id}
+                    href={`/training/${t.id}`}
+                    className={`flex gap-0 hover:bg-muted/40 transition-colors active:scale-[0.99] ${idx > 0 ? 'border-t border-border/10' : ''}`}
+                  >
+                    <div className={`w-1 flex-shrink-0 sport-bar-${t.sport}`} />
+                    <div className="flex-1 px-4 py-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span
+                            className="material-symbols-outlined text-base flex-shrink-0"
+                            style={{ color: `var(--sport-${t.sport})`, fontVariationSettings: "'FILL' 1" }}
+                          >
+                            {config.materialIcon}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="font-headline font-semibold text-sm truncate">{t.title}</p>
+                            <p className="font-headline text-[10px] text-muted-foreground">{dayName}, {dateFormatted}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 flex-shrink-0 text-right">
+                          {distM && (
+                            <div>
+                              <p className="font-headline font-bold text-sm">{fmtDist(distM)}</p>
+                            </div>
+                          )}
+                          {dur && (
+                            <div>
+                              <p className="font-headline font-bold text-sm text-muted-foreground">{fmtDur(dur)}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {(pace || hr) && (
+                        <div className="flex gap-3 mt-1.5">
+                          {pace && (
+                            <span className="font-headline text-[10px] text-muted-foreground">
+                              ⚡ {fmtPace(pace)}
+                            </span>
+                          )}
+                          {hr && (
+                            <span className="font-headline text-[10px] text-red-400">
+                              ♥ {hr} bpm
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )}
+        </TabsContent>
+
+      </Tabs>
     </div>
   );
 }

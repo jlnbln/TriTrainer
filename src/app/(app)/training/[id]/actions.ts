@@ -63,6 +63,37 @@ export interface WorkoutData {
   raw_text: string | null;
 }
 
+export interface RaceSegmentResults {
+  swim_seconds: number | null;
+  t1_seconds: number | null;
+  bike_seconds: number | null;
+  t2_seconds: number | null;
+  run_seconds: number | null;
+}
+
+export async function saveRaceResults(trainingId: string, segments: RaceSegmentResults) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const total_seconds = [
+    segments.swim_seconds, segments.t1_seconds, segments.bike_seconds,
+    segments.t2_seconds, segments.run_seconds,
+  ].reduce((sum: number, s) => sum + (s ?? 0), 0);
+
+  await supabase.from('completions').upsert({
+    training_id: trainingId,
+    user_id: user.id,
+    workout_duration_seconds: total_seconds || null,
+    workout_data: { type: 'race_manual', ...segments, total_seconds: total_seconds || null },
+  }, { onConflict: 'training_id' });
+
+  revalidatePath('/home');
+  revalidatePath('/plan');
+  revalidatePath('/analytics');
+  revalidatePath(`/training/${trainingId}`);
+}
+
 export async function saveWorkoutData(trainingId: string, workout: WorkoutData) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

@@ -2,17 +2,19 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/home',      label: 'Home',      icon: 'home',            iconFill: 'home' },
-  { href: '/plan',      label: 'Plan',      icon: 'calendar_today',  iconFill: 'calendar_today' },
-  { href: '/analytics', label: 'Analytics', icon: 'bar_chart',       iconFill: 'bar_chart' },
-  { href: '/settings',  label: 'Settings',  icon: 'settings',        iconFill: 'settings' },
+  { href: '/home',      labelKey: 'home'      as const, icon: 'home'           },
+  { href: '/plan',      labelKey: 'plan'      as const, icon: 'calendar_today' },
+  { href: '/analytics', labelKey: 'analytics' as const, icon: 'bar_chart'      },
+  { href: '/settings',  labelKey: 'settings'  as const, icon: 'settings'       },
 ];
 
 export function BottomNav() {
   const pathname = usePathname();
+  const t = useTranslations('nav');
 
   return (
     <nav className="fixed bottom-0 left-0 w-full z-50 bg-background border-t border-border/20 safe-area-pb">
@@ -37,7 +39,7 @@ export function BottomNav() {
                 {item.icon}
               </span>
               <span className="font-headline text-[9px] uppercase tracking-widest font-medium">
-                {item.label}
+                {t(item.labelKey)}
               </span>
             </Link>
           );

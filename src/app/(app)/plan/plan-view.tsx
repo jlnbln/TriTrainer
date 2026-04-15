@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { TrainingCard } from '@/components/training-card';
 import type { Sport } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { useTranslations, useLocale } from 'next-intl';
 
 const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -14,6 +15,8 @@ interface PlanViewProps {
 
 export function PlanView({ weeks, currentWeekNumber }: PlanViewProps) {
   const currentWeekRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations('plan');
+  const locale = useLocale();
 
   useEffect(() => {
     if (currentWeekRef.current) {
@@ -52,7 +55,7 @@ export function PlanView({ weeks, currentWeekNumber }: PlanViewProps) {
                              week.phases.phase_number === 3 ? '13–17' : '18–22'}
                     </p>
                     <h3 className="font-headline font-bold text-xl">
-                      Phase {week.phases.phase_number}: {week.phases.name?.en}
+                      {t('phase')} {week.phases.phase_number}: {week.phases.name?.[locale] ?? week.phases.name?.en}
                     </h3>
                   </div>
                   {isPastWeek && completedCount === activitiesCount && activitiesCount > 0 && (
@@ -85,7 +88,7 @@ export function PlanView({ weeks, currentWeekNumber }: PlanViewProps) {
                       </h4>
                       {isCurrentWeek && (
                         <span className="bg-primary text-primary-foreground text-[9px] font-headline font-black px-2 py-0.5 rounded uppercase tracking-tight">
-                          CURRENT
+                          {t('current')}
                         </span>
                       )}
                     </div>

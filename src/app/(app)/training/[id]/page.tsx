@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { TrainingDetail } from './training-detail';
+import { RaceDayView } from './race-day-view';
 
 export default async function TrainingPage({
   params,
@@ -35,8 +36,9 @@ async function TrainingContent({ id }: { id: string }) {
 
   if (!training) notFound();
 
-  // drills and completion are independent — fetch in parallel
-  const [drills, completion] = await Promise.all([
+  // drills, completion, and optional race config fetched in parallel
+  const isRace = training.sport === 'race';
+  const [drills, completion, raceProfile] = await Promise.all([
     training.drill_slugs?.length
       ? supabase
           .from('drills')
@@ -59,9 +61,35 @@ async function TrainingContent({ id }: { id: string }) {
           .maybeSingle()
           .then((r) => r.data)
       : Promise.resolve(null),
+    isRace && session
+      ? supabase
+          .from('profiles')
+          .select('swim_distance_m, bike_distance_km, run_distance_km, swim_goal_minutes, bike_goal_minutes, run_goal_minutes')
+          .eq('id', session.user.id)
+          .single()
+          .then((r) => r.data)
+      : Promise.resolve(null),
   ]);
 
   const trainingWithCompletion = { ...training, completions: completion ? [completion] : [] };
+
+  if (isRace) {
+    const raceConfig = {
+      swimDistanceM:    raceProfile?.swim_distance_m    ?? 750,
+      bikeDistanceKm:   Number(raceProfile?.bike_distance_km   ?? 20),
+      runDistanceKm:    Number(raceProfile?.run_distance_km    ?? 5),
+      swimGoalMinutes:  raceProfile?.swim_goal_minutes  ?? null,
+      bikeGoalMinutes:  raceProfile?.bike_goal_minutes  ?? null,
+      runGoalMinutes:   raceProfile?.run_goal_minutes   ?? null,
+    };
+    return (
+      <RaceDayView
+        training={trainingWithCompletion}
+        userId={session?.user.id || ''}
+        raceConfig={raceConfig}
+      />
+    );
+  }
 
   return (
     <TrainingDetail

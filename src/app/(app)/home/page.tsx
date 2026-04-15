@@ -79,5 +79,20 @@ async function TodayTrainingSection({ dateStr }: { dateStr: string }) {
     ? { ...training, completions: completion ? [completion] : [] }
     : null;
 
-  return <TodayTraining training={trainingWithCompletion} week={week} dateStr={dateStr} />;
+  // Fetch race config only on race day (one extra parallel query is fine)
+  let raceConfig = null;
+  if (training?.sport === 'race' && session) {
+    const { data: raceProfile } = await supabase
+      .from('profiles')
+      .select('swim_distance_m, bike_distance_km, run_distance_km')
+      .eq('id', session.user.id)
+      .single();
+    raceConfig = {
+      swimDistanceM:  raceProfile?.swim_distance_m  ?? 750,
+      bikeDistanceKm: Number(raceProfile?.bike_distance_km ?? 20),
+      runDistanceKm:  Number(raceProfile?.run_distance_km  ?? 5),
+    };
+  }
+
+  return <TodayTraining training={trainingWithCompletion} week={week} dateStr={dateStr} raceConfig={raceConfig} />;
 }

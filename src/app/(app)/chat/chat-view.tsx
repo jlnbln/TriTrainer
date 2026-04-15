@@ -3,7 +3,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -20,11 +29,14 @@ const SUGGESTIONS = [
 export function ChatView({ initialMessages }: { initialMessages: any[] }) {
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations('chat');
   const [messages, setMessages] = useState<Message[]>(
     initialMessages.map((m) => ({ role: m.role, content: m.content }))
   );
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -55,7 +67,11 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
       } else {
         const display = data.message.replace(/```modify\n[\s\S]*?\n```/g, '').trim();
         setMessages((prev) => [...prev, { role: 'assistant', content: display }]);
-        if (data.message.includes('```modify')) router.refresh();
+        if (data.message.includes('```modify')) {
+          router.refresh();
+          setToast({ message: 'Training updated', type: 'success' });
+          setTimeout(() => setToast(null), 3000);
+        }
       }
     } catch {
       setMessages((prev) => [...prev, { role: 'assistant', content: 'Failed to connect. Please check your connection.' }]);
@@ -69,6 +85,7 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
     if (user) {
       await supabase.from('chat_messages').delete().eq('user_id', user.id);
       setMessages([]);
+      setShowClearConfirm(false);
     }
   }
 
@@ -77,15 +94,30 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-6 pb-3 flex-shrink-0">
         <div>
-          <h2 className="font-headline font-bold text-3xl tracking-tight">Chat</h2>
-          <p className="text-muted-foreground text-sm mt-0.5">Ask about your training plan</p>
+          <h2 className="font-headline font-bold text-3xl tracking-tight">{t('title')}</h2>
+          <p className="text-muted-foreground text-sm mt-0.5">{t('subtitle')}</p>
         </div>
         {messages.length > 0 && (
-          <button onClick={clearHistory} className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-muted transition-colors">
+          <button onClick={() => setShowClearConfirm(true)} className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-muted transition-colors">
             <span className="material-symbols-outlined text-muted-foreground text-xl">delete</span>
           </button>
         )}
       </div>
+
+      {/* Toast notification */}
+      {toast && (
+        <div className={cn(
+          'mx-5 mb-1 px-4 py-2.5 rounded-xl flex items-center gap-2 text-sm font-headline font-semibold transition-all flex-shrink-0',
+          toast.type === 'success'
+            ? 'bg-secondary/15 text-secondary border border-secondary/30'
+            : 'bg-destructive/15 text-destructive border border-destructive/30'
+        )}>
+          <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>
+            {toast.type === 'success' ? 'check_circle' : 'error'}
+          </span>
+          {toast.message}
+        </div>
+      )}
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 space-y-6 pb-4">
@@ -97,7 +129,7 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
             <div>
               <p className="font-headline font-bold text-lg">Training Assistant</p>
               <p className="text-sm text-muted-foreground max-w-xs mt-1">
-                Ask me anything about your training plan, technique, nutrition, or race strategy.
+                {t('empty')}
               </p>
             </div>
             <div className="flex flex-wrap gap-2 justify-center mt-1">
@@ -154,6 +186,30 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
         )}
       </div>
 
+      {/* Clear history confirmation */}
+      <Dialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Clear chat history?</DialogTitle>
+            <DialogDescription>All messages will be permanently deleted. This cannot be undone.</DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2">
+            <button
+              onClick={() => setShowClearConfirm(false)}
+              className="flex-1 py-3 rounded-xl border border-border/40 font-headline font-bold text-sm"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={clearHistory}
+              className="flex-1 py-3 rounded-xl bg-destructive text-destructive-foreground font-headline font-bold text-sm"
+            >
+              Clear
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Input bar */}
       <div className="px-4 py-3 flex-shrink-0">
         <div className="flex items-center gap-2 bg-card border border-border/40 rounded-full px-2 py-1.5 shadow-sm">
@@ -162,7 +218,7 @@ export function ChatView({ initialMessages }: { initialMessages: any[] }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-            placeholder="Ask about your training plan..."
+            placeholder={t('placeholder')}
             className="flex-1 bg-transparent text-sm px-3 outline-none placeholder:text-muted-foreground"
           />
           <button

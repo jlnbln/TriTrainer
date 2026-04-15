@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Lexend, Plus_Jakarta_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import { QueryProvider } from '@/components/query-provider';
 import './globals.css';
 
 const lexend = Lexend({
@@ -74,7 +73,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider>
-          <QueryProvider>{children}</QueryProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

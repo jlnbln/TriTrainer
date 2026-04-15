@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 import { SPORT_CONFIG } from '@/lib/constants';
 import { Textarea } from '@/components/ui/textarea';
 import type { Sport } from '@/lib/types';
@@ -40,6 +41,8 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
   const config = SPORT_CONFIG[sport];
   const week = training.weeks;
   const phase = week?.phases;
+  const t = useTranslations('training');
+  const locale = useLocale();
 
   const completion = training.completions?.[0] || null;
   const [isCompleted, setIsCompleted] = useState(!!completion);
@@ -186,11 +189,11 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
       {training.is_modified && (
         <div className="mx-5 mb-5 rounded-xl bg-[color:var(--sport-race)]/10 border border-[color:var(--sport-race)]/20 p-4">
           <p className="font-headline font-bold text-sm" style={{ color: 'var(--sport-race)' }}>
-            Modified by AI Assistant
+            {t('modifiedByAi')}
           </p>
           {training.original_description && (
             <details className="mt-1">
-              <summary className="text-xs text-muted-foreground cursor-pointer">View original</summary>
+              <summary className="text-xs text-muted-foreground cursor-pointer">{t('viewOriginal')}</summary>
               <p className="mt-1 text-xs text-muted-foreground">{training.original_description}</p>
             </details>
           )}
@@ -207,7 +210,7 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
           className="font-headline font-bold text-[10px] uppercase tracking-[0.15em] mb-3"
           style={{ color: `var(--sport-${sport})` }}
         >
-          Workout Details
+          {t('details')}
         </h3>
         <p className="text-foreground leading-relaxed text-sm font-medium whitespace-pre-line">
           {training.description}
@@ -219,7 +222,7 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
         <div className="mx-5 mb-6">
           <h3 className="font-headline font-bold text-[10px] uppercase tracking-[0.15em] text-muted-foreground mb-4 flex items-center gap-2">
             <span className="material-symbols-outlined text-sm">lightbulb</span>
-            Drills Explained
+            {t('drills')}
           </h3>
           <div className="space-y-3">
             {drills.map((drill) => (
@@ -458,7 +461,7 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
               <span className="material-symbols-outlined" style={isCompleted ? { fontVariationSettings: "'FILL' 1" } : {}}>
                 check_circle
               </span>
-              {isCompleted ? 'Completed!' : 'Mark as Complete'}
+              {isCompleted ? t('completed') : t('complete')}
             </button>
           </div>
         </div>

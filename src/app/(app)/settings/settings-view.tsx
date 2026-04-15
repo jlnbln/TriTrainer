@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
 interface SettingsViewProps {
@@ -27,6 +36,7 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
   const router = useRouter();
   const supabase = createClient();
   const { theme, setTheme } = useTheme();
+  const t = useTranslations('settings');
 
   const [name, setName] = useState(profile?.name || '');
   const [heightCm, setHeightCm] = useState(profile?.height_cm || '');
@@ -47,6 +57,7 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
   const [newShoeName, setNewShoeName] = useState('');
   const [newShoeDate, setNewShoeDate] = useState('');
   const [showAddShoe, setShowAddShoe] = useState(false);
+  const [deleteGearId, setDeleteGearId] = useState<number | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -90,6 +101,7 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
 
   async function deleteGear(id: number) {
     await supabase.from('gear').delete().eq('id', id);
+    setDeleteGearId(null);
     router.refresh();
   }
 
@@ -100,15 +112,15 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
   }
 
   const themeOptions = [
-    { value: 'light', label: 'Light', icon: 'light_mode' },
-    { value: 'dark',  label: 'Dark',  icon: 'dark_mode' },
-    { value: 'system', label: 'Auto', icon: 'settings_brightness' },
+    { value: 'light',  labelKey: 'light' as const, icon: 'light_mode' },
+    { value: 'dark',   labelKey: 'dark'  as const, icon: 'dark_mode' },
+    { value: 'system', labelKey: 'auto'  as const, icon: 'settings_brightness' },
   ] as const;
 
   return (
     <div className="max-w-lg mx-auto px-5 pt-6 pb-8 space-y-8">
       <div>
-        <h2 className="font-headline font-bold text-3xl tracking-tight">Settings</h2>
+        <h2 className="font-headline font-bold text-3xl tracking-tight">{t('title')}</h2>
         <p className="text-muted-foreground text-sm mt-1">Manage your profile and equipment</p>
       </div>
 
@@ -294,19 +306,19 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
           App Appearance
         </h3>
         <div className="bg-card rounded-2xl p-1 flex border border-border/40">
-          {themeOptions.map((t) => (
+          {themeOptions.map((opt) => (
             <button
-              key={t.value}
-              onClick={() => setTheme(t.value)}
+              key={opt.value}
+              onClick={() => setTheme(opt.value)}
               className={cn(
                 'flex-1 py-3 px-3 rounded-xl font-headline text-sm font-medium flex items-center justify-center gap-1.5 transition-all',
-                mounted && theme === t.value
+                mounted && theme === opt.value
                   ? 'bg-muted text-primary font-bold'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              <span className="material-symbols-outlined text-base">{t.icon}</span>
-              {t.label}
+              <span className="material-symbols-outlined text-base">{opt.icon}</span>
+              {t(opt.labelKey)}
             </button>
           ))}
         </div>
@@ -367,7 +379,7 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
 
         {gear.filter((g) => g.type === 'running_shoes').length === 0 && !showAddShoe && (
           <p className="text-sm text-muted-foreground px-1">
-            No shoes added yet. Add your running shoes to track their wear.
+            {t('noShoes')}
           </p>
         )}
 
@@ -388,7 +400,7 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
                       </p>
                     )}
                   </div>
-                  <button onClick={() => deleteGear(shoe.id)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors">
+                  <button onClick={() => setDeleteGearId(shoe.id)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-muted transition-colors">
                     <span className="material-symbols-outlined text-muted-foreground text-lg">delete</span>
                   </button>
                 </div>
@@ -418,6 +430,30 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
         })}
       </section>
 
+      {/* Delete gear confirmation */}
+      <Dialog open={deleteGearId !== null} onOpenChange={(open) => { if (!open) setDeleteGearId(null); }}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Remove shoes?</DialogTitle>
+            <DialogDescription>This will permanently delete this shoe and its tracking data. This cannot be undone.</DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2">
+            <button
+              onClick={() => setDeleteGearId(null)}
+              className="flex-1 py-3 rounded-xl border border-border/40 font-headline font-bold text-sm"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => deleteGearId !== null && deleteGear(deleteGearId)}
+              className="flex-1 py-3 rounded-xl bg-destructive text-destructive-foreground font-headline font-bold text-sm"
+            >
+              Remove
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Actions */}
       <div className="space-y-3 pt-2">
         <button
@@ -425,13 +461,13 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
           disabled={saving}
           className="w-full py-4 bg-gradient-to-br from-secondary to-emerald-500 rounded-2xl text-black font-headline font-bold text-sm uppercase tracking-widest shadow-lg shadow-secondary/10 active:scale-95 transition-all disabled:opacity-60"
         >
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? t('saving') : t('save')}
         </button>
         <button
           onClick={handleLogout}
           className="w-full py-4 border border-destructive/30 rounded-2xl text-destructive font-headline font-bold text-sm uppercase tracking-widest hover:bg-destructive/5 active:scale-95 transition-all"
         >
-          Sign Out
+          {t('signOut')}
         </button>
       </div>
     </div>
