@@ -541,7 +541,7 @@ export function SettingsView({
                         <div className="flex gap-2">
                           <Select
                             value={assignMap[activity.id] ?? ''}
-                            onValueChange={(v: string) => setAssignMap((prev) => ({ ...prev, [activity.id]: v }))}
+                            onValueChange={(v) => { if (v) setAssignMap((prev) => ({ ...prev, [activity.id]: v })); }}
                             onOpenChange={(open) => { if (open) loadTrainingOptions(activity); }}
                           >
                             <SelectTrigger className="flex-1 bg-muted border-0 h-9 text-xs font-headline">
