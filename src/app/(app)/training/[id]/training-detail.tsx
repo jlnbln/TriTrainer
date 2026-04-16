@@ -456,7 +456,7 @@ export function TrainingDetail({ training, drills, unlinkedStravaActivities }: T
             >
               Link Strava Activity
             </h3>
-            <Select value={selectedStravaId} onValueChange={setSelectedStravaId}>
+            <Select value={selectedStravaId} onValueChange={(v) => { if (v) setSelectedStravaId(v); }}>
               <SelectTrigger className="bg-muted border-0 font-headline text-sm">
                 <SelectValue placeholder="Select a Strava activity…" />
               </SelectTrigger>
