@@ -36,9 +36,10 @@ async function TrainingContent({ id }: { id: string }) {
 
   if (!training) notFound();
 
-  // drills, completion, and optional race config fetched in parallel
+  // drills, completion, optional race config, and unlinked strava activities fetched in parallel
   const isRace = training.sport === 'race';
-  const [drills, completion, raceProfile] = await Promise.all([
+  const isTrackableSport = ['swim', 'run', 'bike', 'brick'].includes(training.sport);
+  const [drills, completion, raceProfile, unlinkedStravaActivities] = await Promise.all([
     training.drill_slugs?.length
       ? supabase
           .from('drills')
@@ -69,6 +70,17 @@ async function TrainingContent({ id }: { id: string }) {
           .single()
           .then((r) => r.data)
       : Promise.resolve(null),
+    session && isTrackableSport
+      ? supabase
+          .from('strava_activities')
+          .select('id, sport_type, activity_date, distance_meters, duration_seconds, activity_name')
+          .eq('user_id', session.user.id)
+          .eq('sport_type', training.sport)
+          .is('training_id', null)
+          .order('activity_date', { ascending: false })
+          .limit(10)
+          .then((r) => r.data ?? [])
+      : Promise.resolve([]),
   ]);
 
   const trainingWithCompletion = { ...training, completions: completion ? [completion] : [] };
@@ -96,6 +108,7 @@ async function TrainingContent({ id }: { id: string }) {
       training={trainingWithCompletion}
       drills={drills}
       userId={session?.user.id || ''}
+      unlinkedStravaActivities={unlinkedStravaActivities}
     />
   );
 }

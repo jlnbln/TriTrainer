@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
 import {
   Select,
   SelectContent,
@@ -25,14 +24,62 @@ import {
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
+interface UnlinkedActivity {
+  id: number;
+  sport_type: string;
+  activity_date: string;
+  distance_meters: number | null;
+  duration_seconds: number | null;
+  activity_name: string | null;
+}
+
 interface SettingsViewProps {
   profile: any;
   gear: any[];
   totalRunKm: number;
   userId: string;
+  stravaConnected: boolean;
+  stravaLastSyncAt: string | null;
+  unlinkedActivities: UnlinkedActivity[];
 }
 
-export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsViewProps) {
+function formatDurationShort(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+function formatDistanceShort(meters: number): string {
+  if (meters >= 1000) return `${(meters / 1000).toFixed(1)} km`;
+  return `${Math.round(meters)} m`;
+}
+
+function formatRelativeTime(isoString: string): string {
+  const diff = Date.now() - new Date(isoString).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return 'just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
+const SPORT_ICONS: Record<string, string> = {
+  swim: 'pool',
+  run: 'directions_run',
+  bike: 'directions_bike',
+  brick: 'fitness_center',
+};
+
+export function SettingsView({
+  profile,
+  gear,
+  totalRunKm,
+  userId,
+  stravaConnected,
+  stravaLastSyncAt,
+  unlinkedActivities,
+}: SettingsViewProps) {
   const router = useRouter();
   const supabase = createClient();
   const { theme, setTheme } = useTheme();
@@ -59,7 +106,89 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
   const [showAddShoe, setShowAddShoe] = useState(false);
   const [deleteGearId, setDeleteGearId] = useState<number | null>(null);
 
+  // Strava state
+  const [stravaSyncing, setStravaSyncing] = useState(false);
+  const [stravaUnlinkedExpanded, setStravaUnlinkedExpanded] = useState(false);
+  const [assignMap, setAssignMap] = useState<Record<number, string>>({});
+  const [linkingActivity, setLinkingActivity] = useState<number | null>(null);
+  const [dismissingActivity, setDismissingActivity] = useState<number | null>(null);
+  const [trainingOptions, setTrainingOptions] = useState<Record<number, any[]>>({});
+
   useEffect(() => setMounted(true), []);
+
+  async function loadTrainingOptions(activity: UnlinkedActivity) {
+    if (trainingOptions[activity.id]) return;
+
+    // Get the week range for this activity's date (±7 days to cover same week)
+    const date = new Date(activity.activity_date + 'T12:00:00Z');
+    const weekStart = new Date(date);
+    weekStart.setUTCDate(date.getUTCDate() - 6);
+    const weekEnd = new Date(date);
+    weekEnd.setUTCDate(date.getUTCDate() + 6);
+
+    const { data: trainings } = await supabase
+      .from('trainings')
+      .select('id, date, title, sport')
+      .eq('sport', activity.sport_type)
+      .gte('date', weekStart.toISOString().split('T')[0])
+      .lte('date', weekEnd.toISOString().split('T')[0])
+      .order('date', { ascending: true });
+
+    setTrainingOptions((prev) => ({ ...prev, [activity.id]: trainings ?? [] }));
+  }
+
+  async function syncStrava() {
+    setStravaSyncing(true);
+    try {
+      await fetch('/api/strava/sync', { method: 'POST' });
+    } finally {
+      setStravaSyncing(false);
+      router.refresh();
+    }
+  }
+
+  async function disconnectStrava() {
+    await fetch('/api/strava/disconnect', { method: 'POST' });
+    router.refresh();
+  }
+
+  async function dismissActivity(activityId: number) {
+    setDismissingActivity(activityId);
+    try {
+      await fetch('/api/strava/dismiss', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stravaActivityId: activityId }),
+      });
+      router.refresh();
+    } finally {
+      setDismissingActivity(null);
+    }
+  }
+
+  async function linkActivity(activityId: number) {
+    const trainingId = assignMap[activityId];
+    if (!trainingId) return;
+
+    setLinkingActivity(activityId);
+    try {
+      const response = await fetch('/api/strava/link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stravaActivityId: activityId, trainingId: Number(trainingId) }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        alert(err.error || 'Failed to link activity');
+        return;
+      }
+
+      router.refresh();
+    } finally {
+      setLinkingActivity(null);
+    }
+  }
 
   async function saveProfile() {
     setSaving(true);
@@ -298,6 +427,153 @@ export function SettingsView({ profile, gear, totalRunKm, userId }: SettingsView
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Strava */}
+      <section className="space-y-3">
+        <h3 className="font-headline text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">
+          Strava
+        </h3>
+
+        {!stravaConnected ? (
+          <div className="bg-card rounded-2xl border border-border/40 overflow-hidden p-5 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(252,76,2,0.12)' }}>
+              <span className="material-symbols-outlined text-2xl" style={{ color: '#FC4C02' }}>directions_run</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-headline font-bold text-base">Connect Strava</p>
+              <p className="text-muted-foreground text-xs mt-0.5">Automatically import your workouts</p>
+            </div>
+            <button
+              onClick={() => { window.location.href = '/api/strava/auth'; }}
+              className="shrink-0 px-4 py-2.5 rounded-xl bg-gradient-to-r from-secondary to-emerald-500 text-black font-headline font-bold text-xs uppercase tracking-wider"
+            >
+              Connect
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div className="bg-card rounded-2xl border border-border/40 overflow-hidden relative">
+              <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-secondary" />
+              <div className="p-5 pl-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                    <span className="font-headline font-bold text-sm">Connected</span>
+                  </div>
+                  <button
+                    onClick={disconnectStrava}
+                    className="text-xs font-headline font-bold text-destructive/70 hover:text-destructive transition-colors"
+                  >
+                    Disconnect
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-muted-foreground">
+                    {stravaLastSyncAt
+                      ? `Last synced ${formatRelativeTime(stravaLastSyncAt)}`
+                      : 'Never synced'}
+                  </p>
+                  <button
+                    onClick={syncStrava}
+                    disabled={stravaSyncing}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 font-headline font-bold text-xs hover:bg-muted transition-colors disabled:opacity-50"
+                  >
+                    <span className={cn('material-symbols-outlined text-sm', stravaSyncing && 'animate-spin')}>
+                      sync
+                    </span>
+                    {stravaSyncing ? 'Syncing…' : 'Sync Now'}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {unlinkedActivities.length > 0 && (
+              <div className="bg-card rounded-2xl border border-border/40 overflow-hidden">
+                <button
+                  onClick={() => setStravaUnlinkedExpanded(!stravaUnlinkedExpanded)}
+                  className="w-full p-4 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[color:var(--sport-race)] text-lg">warning</span>
+                    <span className="font-headline font-bold text-sm">
+                      {unlinkedActivities.length} {unlinkedActivities.length === 1 ? 'activity needs' : 'activities need'} review
+                    </span>
+                  </div>
+                  <span className="material-symbols-outlined text-muted-foreground">
+                    {stravaUnlinkedExpanded ? 'expand_less' : 'expand_more'}
+                  </span>
+                </button>
+
+                {stravaUnlinkedExpanded && (
+                  <div className="border-t border-border/40 divide-y divide-border/40">
+                    {unlinkedActivities.map((activity) => (
+                      <div key={activity.id} className="p-4 space-y-3">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="material-symbols-outlined text-base"
+                            style={{ color: `var(--sport-${activity.sport_type})` }}
+                          >
+                            {SPORT_ICONS[activity.sport_type] ?? 'fitness_center'}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-headline font-semibold text-sm truncate">
+                              {activity.activity_name || activity.sport_type}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(activity.activity_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                              {activity.distance_meters ? ` · ${formatDistanceShort(activity.distance_meters)}` : ''}
+                              {activity.duration_seconds ? ` · ${formatDurationShort(activity.duration_seconds)}` : ''}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => dismissActivity(activity.id)}
+                            disabled={dismissingActivity === activity.id}
+                            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-muted transition-colors shrink-0"
+                            title="Dismiss — won't be imported again"
+                          >
+                            <span className="material-symbols-outlined text-muted-foreground text-base">
+                              {dismissingActivity === activity.id ? 'progress_activity' : 'close'}
+                            </span>
+                          </button>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Select
+                            value={assignMap[activity.id] ?? ''}
+                            onValueChange={(v) => setAssignMap((prev) => ({ ...prev, [activity.id]: v }))}
+                            onOpenChange={(open) => { if (open) loadTrainingOptions(activity); }}
+                          >
+                            <SelectTrigger className="flex-1 bg-muted border-0 h-9 text-xs font-headline">
+                              <SelectValue placeholder="Assign to training…" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {(trainingOptions[activity.id] ?? []).map((t) => (
+                                <SelectItem key={t.id} value={String(t.id)}>
+                                  {new Date(t.date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} — {t.title}
+                                </SelectItem>
+                              ))}
+                              {(trainingOptions[activity.id] ?? []).length === 0 && trainingOptions[activity.id] !== undefined && (
+                                <SelectItem value="none" disabled>No open slots in this week</SelectItem>
+                              )}
+                            </SelectContent>
+                          </Select>
+                          <button
+                            onClick={() => linkActivity(activity.id)}
+                            disabled={!assignMap[activity.id] || linkingActivity === activity.id}
+                            className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-secondary to-emerald-500 text-black font-headline font-bold text-xs disabled:opacity-40 shrink-0"
+                          >
+                            {linkingActivity === activity.id ? '…' : 'Link'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* Appearance */}

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { Countdown } from '@/components/countdown';
 import { TodayTraining } from './today-training';
+import { StravaSyncTrigger } from '@/components/strava-sync-trigger';
 
 function formatDateStr(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -30,17 +31,22 @@ async function CountdownSection() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('race_date, swim_distance_m, bike_distance_km, run_distance_km')
+    .select('race_date, swim_distance_m, bike_distance_km, run_distance_km, strava_refresh_token, strava_last_sync_at')
     .eq('id', session.user.id)
     .single();
 
   return (
-    <Countdown
-      raceDate={profile?.race_date ?? undefined}
-      swimDistanceM={profile?.swim_distance_m ?? 750}
-      bikeDistanceKm={profile?.bike_distance_km ?? 20}
-      runDistanceKm={profile?.run_distance_km ?? 5}
-    />
+    <>
+      {profile?.strava_refresh_token && (
+        <StravaSyncTrigger lastSyncAt={profile?.strava_last_sync_at ?? null} />
+      )}
+      <Countdown
+        raceDate={profile?.race_date ?? undefined}
+        swimDistanceM={profile?.swim_distance_m ?? 750}
+        bikeDistanceKm={profile?.bike_distance_km ?? 20}
+        runDistanceKm={profile?.run_distance_km ?? 5}
+      />
+    </>
   );
 }
 

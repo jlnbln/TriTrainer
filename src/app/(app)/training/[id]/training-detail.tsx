@@ -5,14 +5,31 @@ import { useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { SPORT_CONFIG } from '@/lib/constants';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import type { Sport } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { markComplete, markIncomplete, updateNotes, saveWorkoutData, type WorkoutData } from './actions';
+
+interface UnlinkedStravaActivity {
+  id: number;
+  sport_type: string;
+  activity_date: string;
+  distance_meters: number | null;
+  duration_seconds: number | null;
+  activity_name: string | null;
+}
 
 interface TrainingDetailProps {
   training: any;
   drills: any[];
   userId: string;
+  unlinkedStravaActivities: UnlinkedStravaActivity[];
 }
 
 function formatDuration(seconds: number): string {
@@ -35,7 +52,7 @@ function formatDistance(meters: number): string {
   return `${meters} m`;
 }
 
-export function TrainingDetail({ training, drills }: TrainingDetailProps) {
+export function TrainingDetail({ training, drills, unlinkedStravaActivities }: TrainingDetailProps) {
   const router = useRouter();
   const sport = training.sport as Sport;
   const config = SPORT_CONFIG[sport];
@@ -56,6 +73,9 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
     completion?.workout_data || null
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [selectedStravaId, setSelectedStravaId] = useState<string>('');
+  const [stravaLinking, setStravaLinking] = useState(false);
 
   const dateFormatted = new Date(training.date + 'T12:00:00Z').toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric',
@@ -88,6 +108,32 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
       next.has(slug) ? next.delete(slug) : next.add(slug);
       return next;
     });
+  }
+
+  async function linkStravaActivity() {
+    if (!selectedStravaId) return;
+    setStravaLinking(true);
+    try {
+      const response = await fetch('/api/strava/link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stravaActivityId: Number(selectedStravaId), trainingId: training.id }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        setUploadError(err.error || 'Failed to link Strava activity');
+        return;
+      }
+
+      const { workoutData: wd } = await response.json();
+      setWorkoutData(wd);
+      setIsCompleted(true);
+    } catch (err) {
+      setUploadError((err as Error).message);
+    } finally {
+      setStravaLinking(false);
+    }
   }
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -392,6 +438,49 @@ export function TrainingDetail({ training, drills }: TrainingDetailProps) {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Link Strava Activity (when not yet completed and unlinked activities exist) */}
+      {!isCompleted && unlinkedStravaActivities.length > 0 && (
+        <div className="mx-5 mb-6 bg-card rounded-2xl border border-dashed border-border/60 overflow-hidden relative">
+          <div
+            className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+            style={{ background: `var(--sport-${sport})` }}
+          />
+          <div className="p-5 pl-6 space-y-3">
+            <h3
+              className="font-headline font-bold text-[10px] uppercase tracking-[0.15em]"
+              style={{ color: `var(--sport-${sport})` }}
+            >
+              Link Strava Activity
+            </h3>
+            <Select value={selectedStravaId} onValueChange={setSelectedStravaId}>
+              <SelectTrigger className="bg-muted border-0 font-headline text-sm">
+                <SelectValue placeholder="Select a Strava activity…" />
+              </SelectTrigger>
+              <SelectContent>
+                {unlinkedStravaActivities.map((a) => {
+                  const date = new Date(a.activity_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  const dist = a.distance_meters ? (a.distance_meters >= 1000 ? `${(a.distance_meters / 1000).toFixed(1)} km` : `${Math.round(a.distance_meters)} m`) : null;
+                  const dur = a.duration_seconds ? `${Math.floor(a.duration_seconds / 60)}:${String(a.duration_seconds % 60).padStart(2, '0')}` : null;
+                  const label = [a.activity_name || a.sport_type, date, dist, dur].filter(Boolean).join(' · ');
+                  return (
+                    <SelectItem key={a.id} value={String(a.id)}>
+                      {label}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+            <button
+              onClick={linkStravaActivity}
+              disabled={!selectedStravaId || stravaLinking}
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-secondary to-emerald-500 text-black font-headline font-bold text-xs uppercase tracking-wider disabled:opacity-40 transition-all"
+            >
+              {stravaLinking ? 'Linking…' : 'Link Activity'}
+            </button>
           </div>
         </div>
       )}

@@ -46,6 +46,29 @@ export interface Completion {
   notes: string | null;
   actualDistanceMeters: number | null;
   perceivedEffort: number | null;
+  stravaActivityId: number | null;
+}
+
+export interface StravaActivity {
+  id: number;
+  stravaId: number;
+  userId: string;
+  sportType: string;
+  activityDate: string;
+  durationSeconds: number | null;
+  distanceMeters: number | null;
+  avgHeartRateBpm: number | null;
+  avgPaceSeconds: number | null;
+  caloriesActive: number | null;
+  elevationMeters: number | null;
+  avgCadenceSpm: number | null;
+  avgPowerWatts: number | null;
+  poolLengthMeters: number | null;
+  laps: number | null;
+  activityName: string | null;
+  rawData: Record<string, unknown>;
+  trainingId: number | null;
+  syncedAt: string;
 }
 
 export interface GearItem {
