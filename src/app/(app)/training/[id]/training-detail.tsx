@@ -457,18 +457,31 @@ export function TrainingDetail({ training, drills, unlinkedStravaActivities }: T
               Link Strava Activity
             </h3>
             <Select value={selectedStravaId} onValueChange={(v) => { if (v) setSelectedStravaId(v); }}>
-              <SelectTrigger className="bg-muted border-0 font-headline text-sm">
+              <SelectTrigger className="w-full h-14 rounded-xl bg-muted border border-border/40 px-4 font-headline font-medium text-sm text-foreground data-placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50">
                 <SelectValue placeholder="Select a Strava activity…" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent
+                className="rounded-2xl bg-card border border-border/40 shadow-xl p-1.5"
+                sideOffset={6}
+              >
                 {unlinkedStravaActivities.map((a) => {
                   const date = new Date(a.activity_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                   const dist = a.distance_meters ? (a.distance_meters >= 1000 ? `${(a.distance_meters / 1000).toFixed(1)} km` : `${Math.round(a.distance_meters)} m`) : null;
                   const dur = a.duration_seconds ? `${Math.floor(a.duration_seconds / 60)}:${String(a.duration_seconds % 60).padStart(2, '0')}` : null;
-                  const label = [a.activity_name || a.sport_type, date, dist, dur].filter(Boolean).join(' · ');
                   return (
-                    <SelectItem key={a.id} value={String(a.id)}>
-                      {label}
+                    <SelectItem
+                      key={a.id}
+                      value={String(a.id)}
+                      className="min-h-[52px] rounded-xl px-4 py-3 cursor-pointer font-headline focus:bg-muted"
+                    >
+                      <span className="flex flex-col gap-0.5 whitespace-normal">
+                        <span className="font-semibold text-sm text-foreground leading-tight">
+                          {a.activity_name || a.sport_type}
+                        </span>
+                        <span className="text-xs text-muted-foreground font-normal">
+                          {[date, dist, dur].filter(Boolean).join(' · ')}
+                        </span>
+                      </span>
                     </SelectItem>
                   );
                 })}
@@ -477,7 +490,7 @@ export function TrainingDetail({ training, drills, unlinkedStravaActivities }: T
             <button
               onClick={linkStravaActivity}
               disabled={!selectedStravaId || stravaLinking}
-              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-secondary to-emerald-500 text-black font-headline font-bold text-xs uppercase tracking-wider disabled:opacity-40 transition-all"
+              className="w-full h-14 rounded-xl bg-gradient-to-r from-secondary to-emerald-500 text-black font-headline font-bold text-xs uppercase tracking-wider disabled:opacity-40 transition-all active:scale-[0.98]"
             >
               {stravaLinking ? 'Linking…' : 'Link Activity'}
             </button>
