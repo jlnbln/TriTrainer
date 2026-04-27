@@ -201,7 +201,7 @@ export async function POST(request: NextRequest) {
         'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4.6',
+        model: 'deepseek/deepseek-v4-flash',
         messages,
         max_tokens: 1024,
       }),
